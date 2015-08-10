@@ -1,0 +1,28 @@
+{
+  "name": "itchy-octo-quack",
+  "version": "1.0.0",
+  "description": "TBS browser based game",
+  "main": "main.js",
+  "dependencies": {
+    "karma": "^0.12.36"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.36",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.5"
+  },
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codemumbler/itchy-octo-quack.git"
+  },
+  "author": "Steven Armstrong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codemumbler/itchy-octo-quack/issues"
+  },
+  "homepage": "https://github.com/codemumbler/itchy-octo-quack"
+}
