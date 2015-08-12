@@ -14,3 +14,11 @@
   border: 1px dotted #333;
   height: 100%;
 }
+
+.planet {
+  background-color: #333;
+}
+
+.sun {
+  background-color: #FFFF00;
+}
