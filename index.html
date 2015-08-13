@@ -1,200 +1,211 @@
 <!doctype html>
 <html ng-app="mainApp" lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>itchy-octo-quack</title>
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="css/main.css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>itchy-octo-quack</title>
 
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		  <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		<script src="js/lib/jquery-1.11.3.min.js"></script>
-		<script src="js/lib/angular.min.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/main.css">
 
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<script src="js/main.js"></script>
-	</head>
-	<body>
-		<div class="system-container">
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1 planet"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1 sun"></div>
-				<div class="col-sm-1 sun"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1 sun"></div>
-				<div class="col-sm-1 sun"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1 planet"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-1"></div>
-			</div>
-		</div>
-	</body>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script src="js/lib/jquery-1.11.3.min.js"></script>
+  <script src="js/lib/angular.min.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">Itchy-Octo-Quack</a>
+      </div>
+    </div>
+  </nav>
+  <div style="position: relative;">
+  <div class="system-container">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1 planet"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1 sun"></div>
+      <div class="col-sm-1 sun"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1 sun"></div>
+      <div class="col-sm-1 sun"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1 planet"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
+    </div>
+  </div>
+</div>
+</body>
 </html>
