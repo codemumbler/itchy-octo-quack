@@ -1,8 +1,16 @@
-.system-container {
+/** system panel **/
+.system-panel {
   background-color: #000;
+  border: 3px solid #444;
   bottom: 0;
+  padding: 50px;
   position: absolute;
   top: 50px;
+  width: 100%;
+}
+
+.system-container {
+  height: 100%;
   width: 100%;
 }
 
