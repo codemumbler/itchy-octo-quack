@@ -1,5 +1,9 @@
 //main.js
 var mainApp = angular.module('mainApp', []);
 mainApp.controller('MainAppController', function() {
-	this.resources = 18;
+	this.resources = 0;
+
+	this.endTurn = function() {
+		this.resources += 7;
+	};
 });
