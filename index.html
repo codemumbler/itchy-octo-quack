@@ -29,11 +29,14 @@
 
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header" ng-controller="MainAppController as main">
+    <div class="container" ng-controller="MainAppController as main">
+      <div class="navbar-header">
         <a href="#" class="navbar-brand">Itchy-Octo-Quack</a>
-        {{main.resources}}
       </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><p class="navbar-text">Resources: {{main.resources}}</p></li>
+        <li><button type="button" class="btn btn-default navbar-btn" ng-click="main.endTurn()">End turn</button></li>
+      </ul>
     </div>
   </nav>
   <div class="system-panel">
