@@ -14,5 +14,11 @@ describe('MainAppController', function() {
 			controller.endTurn();
 			expect(controller.resources).toEqual(7);
 		});
+
+		it('ending turn increments turn counter', function() {
+			var controller = $controller('MainAppController', { });
+			controller.endTurn();
+			expect(controller.turn).toEqual(2);
+		});
 	});
 });
