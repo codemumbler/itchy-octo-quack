@@ -7,5 +7,9 @@ mainApp.controller('MainAppController', function() {
 	this.endTurn = function() {
 		this.resources += 7
 		this.turn++;
+		$("#endTurnModal").modal('show');
+		setTimeout(function(){
+			$("#endTurnModal").modal('hide');
+		}, 100);
 	};
 });
