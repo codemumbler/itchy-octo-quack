@@ -12,4 +12,12 @@ mainApp.controller('MainAppController', function() {
 			$("#endTurnModal").modal('hide');
 		}, 100);
 	};
+
+	var victory = function() {
+		$("#victoryModal").modal('show');
+	};
+
+	var defeat = function() {
+		$("#defeatModal").modal('show');
+	}
 });
