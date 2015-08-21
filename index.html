@@ -40,7 +40,7 @@
       </ul>
     </div>
   </nav>
-  <div class="system-panel">
+  <div class="system-panel" ng-controller="MainAppController as main">
     <div class="system-container">
       <div class="row">
         <div class="col-sm-1"></div>
@@ -187,7 +187,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-1 planet"></div>
+        <div class="col-sm-1 planet" ng-click="main.buildShip();"></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
