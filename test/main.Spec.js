@@ -6,7 +6,7 @@ describe('MainAppController', function() {
 	beforeEach(inject(function(_$controller_) {
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
-		controller = $controller('MainAppController', { });
+		controller = $controller('MainAppController', {});
 	}));
 
 	describe('$controller.endTurn', function() {
@@ -23,8 +23,15 @@ describe('MainAppController', function() {
 
 	describe('$controller.buildShip', function() {
 		it('requesting ship queues one ship to be built', function() {
+			controller.resources = 10;
 			controller.buildShip();
 			expect(controller.workQueue).toEqual(1);
+		});
+
+		it('requesting ship built costs 10 resources', function() {
+			controller.resources = 10;
+			controller.buildShip();
+			expect(controller.resources).toEqual(0);
 		});
 	});
 });

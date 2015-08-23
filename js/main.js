@@ -12,7 +12,10 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	this.buildShip = function() {
-		this.workQueue++;
+		if (this.resources >= 10) {
+			this.resources -= 10;
+			this.workQueue++;
+		}
 	};
 
 	var endTurnModal = function() {
