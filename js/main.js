@@ -8,15 +8,21 @@ mainApp.controller('MainAppController', function() {
 	this.endTurn = function() {
 		this.resources += 7
 		this.turn++;
+		if (this.workQueue > 0)
+			buildShip.call(this);
 		endTurnModal();
 	};
 
-	this.buildShip = function() {
+	this.queueShip = function() {
 		if (this.resources >= 10) {
 			this.resources -= 10;
 			this.workQueue++;
 		}
 	};
+
+	var buildShip = function() {
+		this.workQueue--;
+	}
 
 	var endTurnModal = function() {
 		if ($("#endTurnModal").length == 0)

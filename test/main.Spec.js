@@ -19,19 +19,32 @@ describe('MainAppController', function() {
 			controller.endTurn();
 			expect(controller.turn).toEqual(2);
 		});
+
+		it('end turn does not change work queue if empty', function() {
+			controller.workQueue = 0;
+			controller.endTurn();
+			expect(controller.workQueue).toEqual(0);
+		});
 	});
 
-	describe('$controller.buildShip', function() {
+	describe('$controller.queueShip', function() {
 		it('requesting ship queues one ship to be built', function() {
 			controller.resources = 10;
-			controller.buildShip();
+			controller.queueShip();
 			expect(controller.workQueue).toEqual(1);
 		});
 
 		it('requesting ship built costs 10 resources', function() {
 			controller.resources = 10;
-			controller.buildShip();
+			controller.queueShip();
 			expect(controller.resources).toEqual(0);
+		});
+
+		it('requested ship build after turn', function() {
+			controller.resources = 10;
+			controller.queueShip();
+			controller.endTurn();
+			expect(controller.workQueue).toEqual(0);
 		});
 	});
 });

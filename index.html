@@ -27,9 +27,9 @@
   <script src="js/main.js"></script>
 </head>
 
-<body>
+<body ng-controller="MainAppController as main">
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container" ng-controller="MainAppController as main">
+    <div class="container" >
       <div class="navbar-header">
         <a href="#" class="navbar-brand">Itchy-Octo-Quack</a>
       </div>
@@ -40,7 +40,7 @@
       </ul>
     </div>
   </nav>
-  <div class="system-panel" ng-controller="MainAppController as main">
+  <div class="system-panel">
     <div class="system-container">
       <div class="row">
         <div class="col-sm-1"></div>
@@ -187,7 +187,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-1 planet" ng-click="main.buildShip();"></div>
+        <div class="col-sm-1 planet" ng-click="main.queueShip();"><span class="badge">{{main.workQueue}}</span></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
         <div class="col-sm-1"></div>
