@@ -22,6 +22,7 @@ mainApp.controller('MainAppController', function() {
 
 	var buildShip = function() {
 		this.workQueue--;
+		$('<div class="ship"/>').appendTo(".planet.player1");
 	}
 
 	var endTurnModal = function() {
