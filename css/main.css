@@ -15,12 +15,13 @@
 }
 
 .system-container .row {
-  height: 8.3333%;
+  height: 7.69%;
 }
 
 .system-container .row > div {
   border: 1px dotted #333;
   height: 100%;
+  width: 7.69%;
 }
 
 .planet {
