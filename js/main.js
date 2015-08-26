@@ -34,7 +34,6 @@ mainApp.controller('MainAppController', function() {
 		}, 100);
 	}
 
-
 	var victory = function() {
 		$("#victoryModal").modal('show');
 	};
@@ -42,4 +41,18 @@ mainApp.controller('MainAppController', function() {
 	var defeat = function() {
 		$("#defeatModal").modal('show');
 	}
+
+	this.getGridSize = function() {
+		var array = [];
+		for (var i = 0; i < 13; i++)
+			array.push(i);
+		return array;
+	};
+
+	this.hasObject = function(x,y) {
+		if (x==6 && y==6)
+			return "sun";
+		if ((x==9 && y==3) || (x==4 && y==10))
+			return "planet";
+	};
 });

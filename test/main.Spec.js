@@ -47,4 +47,22 @@ describe('MainAppController', function() {
 			expect(controller.workQueue).toEqual(0);
 		});
 	});
+
+	describe('$controller.grid', function() {
+		it('get grid size', function() {
+			expect(controller.getGridSize().length).toEqual(13);
+		});
+
+		it('has object - sun', function() {
+			expect(controller.hasObject(6,6)).toEqual('sun');
+		});
+
+		it('has object - planet', function() {
+			expect(controller.hasObject(9,3)).toEqual('planet');
+		});
+
+		it('has object - nothing there', function() {
+			expect(controller.hasObject(0,0)).toEqual(undefined);
+		});
+	});
 });
