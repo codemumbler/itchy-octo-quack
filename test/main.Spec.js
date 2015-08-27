@@ -7,7 +7,13 @@ describe('MainAppController', function() {
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
 		controller = $controller('MainAppController', {});
+
+		$(document.body).append("<div class='test-element'><div class='x-0 y-0'/></div>");
 	}));
+
+	afterEach(function(){
+		$('.test-element').remove();
+	});
 
 	describe('$controller.endTurn', function() {
 		it('ending turn adds resources', function() {
@@ -28,35 +34,36 @@ describe('MainAppController', function() {
 	});
 
 	describe('$controller.queueShip', function() {
-		it('requesting ship queues one ship to be built', function() {
+		beforeEach(function() {
+			$(".x-0.y-0").addClass("planet player1");
+			controller.select(0,0);
 			controller.resources = 10;
-			controller.queueShip();
+		});
+
+		it('requesting ship queues one ship to be built', function() {
+			controller.select(0,0);
 			expect(controller.workQueue).toEqual(1);
 		});
 
 		it('requesting ship built costs 10 resources', function() {
-			controller.resources = 10;
-			controller.queueShip();
+			controller.select(0,0);
 			expect(controller.resources).toEqual(0);
 		});
 
 		it('requested ship build after turn', function() {
-			controller.resources = 10;
-			controller.queueShip();
+			controller.select(0,0);
 			controller.endTurn();
+			expect(controller.workQueue).toEqual(0);
+		});
+
+		it('planet grid must be selected before queueing ship', function() {
+			controller.select(1,1);
+			controller.select(0,0);
 			expect(controller.workQueue).toEqual(0);
 		});
 	});
 
 	describe('$controller.grid', function() {
-		beforeEach(function(){
-			$(document.body).append("<div class='test-element'><div class='x-0 y-0'/></div>");
-		});
-
-		afterEach(function(){
-			$('.test-element').remove();
-		});
-
 		it('get grid size', function() {
 			expect(controller.getGridSize().length).toEqual(13);
 		});
@@ -66,7 +73,11 @@ describe('MainAppController', function() {
 		});
 
 		it('has object - planet', function() {
-			expect(controller.hasObject(9,3)).toEqual('planet');
+			expect(controller.hasObject(4,10)).toEqual('planet player1');
+		});
+
+		it('has object - planet', function() {
+			expect(controller.hasObject(9,3)).toEqual('planet player2');
 		});
 
 		it('has object - nothing there', function() {

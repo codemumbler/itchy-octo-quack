@@ -5,6 +5,7 @@ mainApp.controller('MainAppController', function() {
 	this.turn = 1;
 	this.workQueue = 0;
 	this.selected = undefined;
+	this.prevSelected = undefined;
 
 	this.endTurn = function() {
 		this.resources += 7
@@ -14,7 +15,7 @@ mainApp.controller('MainAppController', function() {
 		endTurnModal();
 	};
 
-	this.queueShip = function() {
+	var queueShip = function() {
 		if (this.resources >= 10) {
 			this.resources -= 10;
 			this.workQueue++;
@@ -23,24 +24,24 @@ mainApp.controller('MainAppController', function() {
 
 	var buildShip = function() {
 		this.workQueue--;
-		$('<div class="ship"/>').appendTo(".planet.player1");
+		$('<div class="ship"/>').appendTo('.planet.player1');
 	}
 
 	var endTurnModal = function() {
-		if ($("#endTurnModal").length == 0)
+		if ($('#endTurnModal').length == 0)
 			return;
-		$("#endTurnModal").modal('show');
+		$('#endTurnModal').modal('show');
 		setTimeout(function(){
-			$("#endTurnModal").modal('hide');
+			$('#endTurnModal').modal('hide');
 		}, 100);
 	}
 
 	var victory = function() {
-		$("#victoryModal").modal('show');
+		$('#victoryModal').modal('show');
 	};
 
 	var defeat = function() {
-		$("#defeatModal").modal('show');
+		$('#defeatModal').modal('show');
 	}
 
 	this.getGridSize = function() {
@@ -52,15 +53,21 @@ mainApp.controller('MainAppController', function() {
 
 	this.hasObject = function(x,y) {
 		if (x==6 && y==6)
-			return "sun";
-		if ((x==9 && y==3) || (x==4 && y==10))
-			return "planet";
+			return 'sun';
+		if (x==9 && y==3)
+			return 'planet player2';
+		if (x==4 && y==10)
+			return 'planet player1';
 	};
 
 	this.select = function(x,y) {
-		if (this.selected)
-			this.selected.parent().removeClass("selected");
-		this.selected = $(".x-" + x + ".y-" + y);
-		this.selected.parent().addClass("selected");
+		this.selected = $('.x-' + x + '.y-' + y);
+		if (this.prevSelected)
+			this.prevSelected.parent().removeClass('selected');
+		this.selected.parent().addClass('selected');
+		if (this.prevSelected && this.selected.hasClass('planet') && this.selected.attr('class') == this.prevSelected.attr('class')) {
+			queueShip.call(this);
+		}
+		this.prevSelected = this.selected;
 	};
 });
