@@ -4,6 +4,7 @@ mainApp.controller('MainAppController', function() {
 	this.resources = 0;
 	this.turn = 1;
 	this.workQueue = 0;
+	this.selected = undefined;
 
 	this.endTurn = function() {
 		this.resources += 7
@@ -54,5 +55,12 @@ mainApp.controller('MainAppController', function() {
 			return "sun";
 		if ((x==9 && y==3) || (x==4 && y==10))
 			return "planet";
+	};
+
+	this.select = function(x,y) {
+		if (this.selected)
+			this.selected.parent().removeClass("selected");
+		this.selected = $(".x-" + x + ".y-" + y);
+		this.selected.parent().addClass("selected");
 	};
 });

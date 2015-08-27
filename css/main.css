@@ -25,6 +25,10 @@
   height: 100%;
 }
 
+.system-container .row > div.selected {
+  border: 1px solid #FFF;
+}
+
 .system-container .row > div > div {
   height: 100%;
 }

@@ -49,6 +49,14 @@ describe('MainAppController', function() {
 	});
 
 	describe('$controller.grid', function() {
+		beforeEach(function(){
+			$(document.body).append("<div class='test-element'><div class='x-0 y-0'/></div>");
+		});
+
+		afterEach(function(){
+			$('.test-element').remove();
+		});
+
 		it('get grid size', function() {
 			expect(controller.getGridSize().length).toEqual(13);
 		});
@@ -63,6 +71,23 @@ describe('MainAppController', function() {
 
 		it('has object - nothing there', function() {
 			expect(controller.hasObject(0,0)).toEqual(undefined);
+		});
+
+		it('selecting saves selected grid', function(){
+			controller.select(0,0);
+			expect(controller.selected.attr('class')).toEqual("x-0 y-0");
+		});
+
+		it('selecting adds highlighting parent cell', function(){
+			controller.select(0,0);
+			expect(controller.selected.parent().attr('class')).toEqual("test-element selected");
+		});
+
+		it('selecting another removes highlighting', function(){
+			controller.select(0,0);
+			var savedSelected = controller.selected;
+			controller.select(1,1);
+			expect(savedSelected.parent().attr('class')).toEqual("test-element");
 		});
 	});
 });

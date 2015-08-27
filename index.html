@@ -43,7 +43,7 @@
   <div class="system-panel">
     <div class="system-container">
       <div class="row" ng-repeat="y in main.getGridSize()">
-        <div class="col-sm-1" ng-repeat="x in main.getGridSize()"><div class="x-{{x}} y-{{y}}" ng-class="main.hasObject(x,y)" ng-click="main.select()"></div></div>
+        <div class="col-sm-1" ng-repeat="x in main.getGridSize()"><div class="x-{{x}} y-{{y}}" ng-class="main.hasObject(x,y)" ng-click="main.select(x,y)"></div></div>
       </div>
     </div>
   </div>
