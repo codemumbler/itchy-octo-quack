@@ -101,4 +101,38 @@ describe('MainAppController', function() {
 			expect(savedSelected.parent().attr('class')).toEqual("test-element");
 		});
 	});
+
+	describe('ship movement', function(){
+		it('select ship to move', function(){
+			$(".x-0.y-0").addClass("planet player1");
+			$('<div class="ship"/>').appendTo('.planet.player1');
+			controller.select(0,0);
+			expect(controller.prevSelected.hasClass('ship selected')).toBe(true);
+		});
+
+		it('select grid to move ship', function(){
+			$('<div class="ship selected"/>').appendTo(document.body);
+			controller.prevSelected = $('.ship');
+			controller.select(0,0);
+			expect($(".x-0.y-0").find('.ship').length).toEqual(1);
+		});
+
+		it('selects planet under ship', function(){
+			$(".x-0.y-0").addClass("planet player1");
+			$('<div class="ship"/>').appendTo('.planet.player1');
+			controller.select(0,0);
+			controller.select(0,0);
+			expect(controller.prevSelected.hasClass('planet')).toBe(true);
+		});
+
+		it('can queue ship when ship on planet', function(){
+			controller.resources = 10;
+			$(".x-0.y-0").addClass("planet player1");
+			$('<div class="ship"/>').appendTo('.planet.player1');
+			controller.select(0,0);
+			controller.select(0,0);
+			controller.select(0,0);
+			expect(controller.workQueue).toBe(1);
+		});
+	});
 });

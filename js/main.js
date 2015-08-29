@@ -62,11 +62,24 @@ mainApp.controller('MainAppController', function() {
 
 	this.select = function(x,y) {
 		this.selected = $('.x-' + x + '.y-' + y);
-		if (this.prevSelected)
+		if (this.prevSelected) {
+			if (this.prevSelected.hasClass('ship') && this.selected.find('.ship').length == 0) {
+				this.prevSelected.appendTo(this.selected);
+				return;
+			}
 			this.prevSelected.parent().removeClass('selected');
-		this.selected.parent().addClass('selected');
-		if (this.prevSelected && this.selected.hasClass('planet') && this.selected.attr('class') == this.prevSelected.attr('class')) {
-			queueShip.call(this);
+		}
+		if (this.prevSelected && this.prevSelected.hasClass('planet')) {
+			if (this.prevSelected && this.selected.hasClass('planet') && this.selected.attr('class') == this.prevSelected.attr('class')) {
+				queueShip.call(this);
+			}
+			this.selected = undefined;
+		} else if (this.selected.find('.ship').length > 0 && !this.selected.find('.ship').hasClass('selected')) {
+			this.selected.find('.ship').addClass('selected');
+			this.selected = this.selected.find('.ship');
+		} else {
+			this.selected.find('.ship').removeClass('selected');
+			this.selected.parent().addClass('selected');
 		}
 		this.prevSelected = this.selected;
 	};

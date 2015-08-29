@@ -43,11 +43,18 @@
 
 .ship {
   background-color: #AB34DF;
-  height: 100%;
+  height: 80%;
   position: absolute;
-  width: 100%;
+  width: 80%;
+  margin: 5% 9%;
+  z-index: 20;
+}
+
+.selected.ship {
+  border: 1px solid #FFF;
 }
 
 .work-queue {
   position: absolute;
+  z-index: 30;
 }
