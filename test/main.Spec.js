@@ -8,7 +8,7 @@ describe('MainAppController', function() {
 		$controller = _$controller_;
 		controller = $controller('MainAppController', {});
 
-		$(document.body).append("<div class='test-element'><div class='x-0 y-0'/></div>");
+		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
 	}));
 
 	afterEach(function(){
@@ -35,7 +35,7 @@ describe('MainAppController', function() {
 
 	describe('$controller.queueShip', function() {
 		beforeEach(function() {
-			$(".x-0.y-0").addClass("planet player1");
+			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
 			controller.resources = 10;
 		});
@@ -86,53 +86,81 @@ describe('MainAppController', function() {
 
 		it('selecting saves selected grid', function(){
 			controller.select(0,0);
-			expect(controller.selected.attr('class')).toEqual("x-0 y-0");
+			expect(controller.selected.attr('class')).toEqual('x-0 y-0');
 		});
 
 		it('selecting adds highlighting parent cell', function(){
 			controller.select(0,0);
-			expect(controller.selected.parent().attr('class')).toEqual("test-element selected");
+			expect(controller.selected.parent().attr('class')).toEqual('test-element selected');
 		});
 
 		it('selecting another removes highlighting', function(){
 			controller.select(0,0);
 			var savedSelected = controller.selected;
 			controller.select(1,1);
-			expect(savedSelected.parent().attr('class')).toEqual("test-element");
+			expect(savedSelected.parent().attr('class')).toEqual('test-element');
 		});
 	});
 
 	describe('ship movement', function(){
+		var buildShip = function() {
+			controller.resources = 10;
+			$('.x-0.y-0').addClass('planet player1');
+			controller.select(0,0);
+			controller.select(0,0);
+			controller.endTurn();
+		};
+
 		it('select ship to move', function(){
-			$(".x-0.y-0").addClass("planet player1");
-			$('<div class="ship"/>').appendTo('.planet.player1');
+			buildShip();
 			controller.select(0,0);
 			expect(controller.prevSelected.hasClass('ship selected')).toBe(true);
 		});
 
 		it('select grid to move ship', function(){
-			$('<div class="ship selected"/>').appendTo(document.body);
-			controller.prevSelected = $('.ship');
+			$('.test-element').append('<div class="x-1 y-0" data-x="1" data-y="0"/>');
+			buildShip();
+			controller.select(1,0);
 			controller.select(0,0);
-			expect($(".x-0.y-0").find('.ship').length).toEqual(1);
+			expect($('.x-0.y-0').find('.ship').length).toEqual(1);
 		});
 
 		it('selects planet under ship', function(){
-			$(".x-0.y-0").addClass("planet player1");
-			$('<div class="ship"/>').appendTo('.planet.player1');
+			buildShip();
 			controller.select(0,0);
 			controller.select(0,0);
 			expect(controller.prevSelected.hasClass('planet')).toBe(true);
 		});
 
 		it('can queue ship when ship on planet', function(){
+			buildShip();
 			controller.resources = 10;
-			$(".x-0.y-0").addClass("planet player1");
-			$('<div class="ship"/>').appendTo('.planet.player1');
 			controller.select(0,0);
 			controller.select(0,0);
 			controller.select(0,0);
 			expect(controller.workQueue).toBe(1);
+		});
+
+		it('can move 3 spaces per turn', function() {
+			buildShip();
+			expect($('.ship').data('moves')).toEqual(3);
+		});
+
+		it('moves 3 spaces has 0 left', function() {
+			$('.test-element').append('<div class="x-3 y-0" data-x="3" data-y="0"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(3,0);
+			expect($('.ship').data('moves')).toEqual(0);
+		});
+
+		it('moves 4 spaces has 3 left and hasn\'t moved', function() {
+			$('.test-element').append('<div class="x-3 y-0" data-x="3" data-y="0"/>');
+			$('.test-element').append('<div class="x-4 y-0" data-x="4" data-y="0"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(4,0);
+			expect($('.ship').data('moves')).toEqual(3);
 		});
 	});
 });

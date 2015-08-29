@@ -24,8 +24,10 @@ mainApp.controller('MainAppController', function() {
 
 	var buildShip = function() {
 		this.workQueue--;
-		$('<div class="ship"/>').appendTo('.planet.player1');
-	}
+		var ship = $('<div class="ship"/>');
+		ship.data('moves', 3);
+		ship.appendTo('.planet.player1');
+	};
 
 	var endTurnModal = function() {
 		if ($('#endTurnModal').length == 0)
@@ -34,7 +36,7 @@ mainApp.controller('MainAppController', function() {
 		setTimeout(function(){
 			$('#endTurnModal').modal('hide');
 		}, 100);
-	}
+	};
 
 	var victory = function() {
 		$('#victoryModal').modal('show');
@@ -42,7 +44,28 @@ mainApp.controller('MainAppController', function() {
 
 	var defeat = function() {
 		$('#defeatModal').modal('show');
-	}
+	};
+
+	var moveShip = function($ship, $coordinates) {
+		var toTravel = distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
+		if (toTravel > $ship.data('moves'))
+			return false;
+		$ship.data('moves', $ship.data('moves') - toTravel);
+		$ship.appendTo($coordinates);
+	};
+
+	var distance = function(x1, y1, x2, y2) {
+    var dx = Math.abs(x2 - x1);
+    var dy = Math.abs(y2 - y1);
+
+    var min = Math.min(dx, dy);
+    var max = Math.max(dx, dy);
+
+    var diagonalSteps = min;
+    var straightSteps = max - min;
+
+    return Math.sqrt(2) * diagonalSteps + straightSteps;
+	};
 
 	this.getGridSize = function() {
 		var array = [];
@@ -64,7 +87,7 @@ mainApp.controller('MainAppController', function() {
 		this.selected = $('.x-' + x + '.y-' + y);
 		if (this.prevSelected) {
 			if (this.prevSelected.hasClass('ship') && this.selected.find('.ship').length == 0) {
-				this.prevSelected.appendTo(this.selected);
+				moveShip(this.prevSelected, this.selected);
 				return;
 			}
 			this.prevSelected.parent().removeClass('selected');
