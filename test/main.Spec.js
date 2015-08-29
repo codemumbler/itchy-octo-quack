@@ -114,7 +114,7 @@ describe('MainAppController', function() {
 		it('select ship to move', function(){
 			buildShip();
 			controller.select(0,0);
-			expect(controller.prevSelected.hasClass('ship selected')).toBe(true);
+			expect(controller.prevSelected.hasClass('ship player1 selected')).toBe(true);
 		});
 
 		it('select grid to move ship', function(){
@@ -160,6 +160,15 @@ describe('MainAppController', function() {
 			buildShip();
 			controller.select(0,0);
 			controller.select(4,0);
+			expect($('.ship').data('moves')).toEqual(3);
+		});
+
+		it('ending turn refreshes moves remaining', function() {
+			$('.test-element').append('<div class="x-3 y-0" data-x="3" data-y="0"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(3,0);
+			controller.endTurn();
 			expect($('.ship').data('moves')).toEqual(3);
 		});
 	});

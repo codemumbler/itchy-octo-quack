@@ -12,6 +12,7 @@ mainApp.controller('MainAppController', function() {
 		this.turn++;
 		if (this.workQueue > 0)
 			buildShip.call(this);
+		$('.ship.player1').data('moves', 3);
 		endTurnModal();
 	};
 
@@ -24,7 +25,7 @@ mainApp.controller('MainAppController', function() {
 
 	var buildShip = function() {
 		this.workQueue--;
-		var ship = $('<div class="ship"/>');
+		var ship = $('<div class="ship player1"/>');
 		ship.data('moves', 3);
 		ship.appendTo('.planet.player1');
 	};
@@ -52,19 +53,20 @@ mainApp.controller('MainAppController', function() {
 			return false;
 		$ship.data('moves', $ship.data('moves') - toTravel);
 		$ship.appendTo($coordinates);
+		return true;
 	};
 
 	var distance = function(x1, y1, x2, y2) {
-    var dx = Math.abs(x2 - x1);
-    var dy = Math.abs(y2 - y1);
+		var dx = Math.abs(x2 - x1);
+		var dy = Math.abs(y2 - y1);
 
-    var min = Math.min(dx, dy);
-    var max = Math.max(dx, dy);
+		var min = Math.min(dx, dy);
+		var max = Math.max(dx, dy);
 
-    var diagonalSteps = min;
-    var straightSteps = max - min;
+		var diagonalSteps = min;
+		var straightSteps = max - min;
 
-    return Math.sqrt(2) * diagonalSteps + straightSteps;
+		return diagonalSteps + straightSteps;
 	};
 
 	this.getGridSize = function() {
@@ -87,8 +89,8 @@ mainApp.controller('MainAppController', function() {
 		this.selected = $('.x-' + x + '.y-' + y);
 		if (this.prevSelected) {
 			if (this.prevSelected.hasClass('ship') && this.selected.find('.ship').length == 0) {
-				moveShip(this.prevSelected, this.selected);
-				return;
+				if (moveShip(this.prevSelected, this.selected))
+					return;
 			}
 			this.prevSelected.parent().removeClass('selected');
 		}
@@ -98,8 +100,8 @@ mainApp.controller('MainAppController', function() {
 			}
 			this.selected = undefined;
 		} else if (this.selected.find('.ship').length > 0 && !this.selected.find('.ship').hasClass('selected')) {
-			this.selected.find('.ship').addClass('selected');
-			this.selected = this.selected.find('.ship');
+			$(this.selected.find('.ship')[0]).addClass('selected');
+			this.selected = $(this.selected.find('.ship')[0]);
 		} else {
 			this.selected.find('.ship').removeClass('selected');
 			this.selected.parent().addClass('selected');
