@@ -43,6 +43,11 @@
 
 .ship {
   background-color: #AB34DF;
-  height: 16px;
-  width: 16px;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.work-queue {
+  position: absolute;
 }
