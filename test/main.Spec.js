@@ -184,7 +184,7 @@ describe('MainAppController', function() {
 
 		it('player1 ship attacks player2 planet - gets destroyed', function() {
 			controller.random = function(){
-				return 0;
+				return 1;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
 			buildShip();
@@ -195,7 +195,7 @@ describe('MainAppController', function() {
 
 		it('player1 ship attacks player2 planet - planet dies', function() {
 			controller.random = function(){
-				return 1;
+				return 0;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
 			buildShip();
@@ -236,6 +236,20 @@ describe('MainAppController', function() {
 			controller.select(0,0);
 			controller.select(1,1);
 			expect($('.ship.player2').length).toEqual(1);
+			expect($('.ship.player1').length).toEqual(0);
+		});
+
+		it('player1 ship attacks player2 ship and planet - 1 player2 ship dies and player1 ship dies', function() {
+			var count = 0;
+			controller.random = function(){
+				return count++;
+			};
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"><div class="ship player2"/></div>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.x-1.y-1.planet').hasClass('player2')).toEqual(true);
+			expect($('.ship.player2').length).toEqual(0);
 			expect($('.ship.player1').length).toEqual(0);
 		});
 	});

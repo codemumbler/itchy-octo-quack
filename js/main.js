@@ -70,22 +70,26 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	var attack = function($ship, $coordinates) {
-		if ($coordinates.hasClass('planet player2')) {
-			if (this.random() < 0.2) {
-				$ship.remove();
-			} else {
-				$coordinates.removeClass('player2');
-			}
-		} else if ($coordinates.find('.ship.player2').length > 0){
+		if ($coordinates.find('.ship.player2').length > 0){
 			var parent = this;
 			$coordinates.find('.ship.player2').each(function(index, data){
 				if (parent.random() >= 0.5) {
 					$ship.remove();
+					return false;
 				} else {
 					data.remove();
 				}
 			});
 		}
+		if ($coordinates.hasClass('planet player2')) {
+			if (this.random() >= 0.8) {
+				$ship.remove();
+				return false;
+			} else {
+				$coordinates.removeClass('player2');
+			}
+		}
+		return true;
 	};
 
 	this.random = function() {
