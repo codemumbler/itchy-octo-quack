@@ -40,11 +40,13 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	var victory = function() {
-		$('#victoryModal').modal('show');
+		if ($('#victoryModal').length != 0)
+			$('#victoryModal').modal('show');
 	};
 
 	var defeat = function() {
-		$('#defeatModal').modal('show');
+		if ($('#defeatModal').length != 0)
+			$('#defeatModal').modal('show');
 	};
 
 	var moveShip = function($ship, $coordinates) {
@@ -82,11 +84,12 @@ mainApp.controller('MainAppController', function() {
 			});
 		}
 		if ($coordinates.hasClass('planet player2')) {
-			if (this.random() >= 0.8) {
+			if (this.random() >= 0.2) {
 				$ship.remove();
 				return false;
 			} else {
 				$coordinates.removeClass('player2');
+				victory();
 			}
 		}
 		return true;
@@ -123,8 +126,8 @@ mainApp.controller('MainAppController', function() {
 			}
 			this.prevSelected.parent().removeClass('selected');
 		}
-		if (this.prevSelected && this.prevSelected.hasClass('planet')) {
-			if (this.prevSelected && this.selected.hasClass('planet') && this.selected.attr('class') == this.prevSelected.attr('class')) {
+		if (this.prevSelected && this.prevSelected.hasClass('planet player1')) {
+			if (this.prevSelected && this.selected.hasClass('planet player1') && this.selected.attr('class') == this.prevSelected.attr('class')) {
 				queueShip.call(this);
 			}
 			this.selected = undefined;
