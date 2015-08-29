@@ -172,4 +172,71 @@ describe('MainAppController', function() {
 			expect($('.ship').data('moves')).toEqual(3);
 		});
 	});
+
+	describe('ship attack', function(){
+		var buildShip = function() {
+			controller.resources = 10;
+			$('.x-0.y-0').addClass('planet player1');
+			controller.select(0,0);
+			controller.select(0,0);
+			controller.endTurn();
+		};
+
+		it('player1 ship attacks player2 planet - gets destroyed', function() {
+			controller.random = function(){
+				return 0;
+			};
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship').length).toEqual(0);
+		});
+
+		it('player1 ship attacks player2 planet - planet dies', function() {
+			controller.random = function(){
+				return 1;
+			};
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.x-1.y-1.planet').hasClass('player2')).toEqual(false);
+		});
+
+		it('player1 ship attacks player2 ship - player1 dies', function() {
+			controller.random = function(){
+				return 1;
+			};
+			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/></div>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship.player1').length).toEqual(0);
+		});
+
+		it('player1 ship attacks player2 ship - player2 dies', function() {
+			controller.random = function(){
+				return 0;
+			};
+			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/></div>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship.player2').length).toEqual(0);
+		});
+
+		it('player1 ship attacks 2 player2 ships - 1 player2 dies and player1 dies', function() {
+			var count = 0;
+			controller.random = function(){
+				return count++;
+			};
+			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/><div class="ship player2"/></div>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship.player2').length).toEqual(1);
+			expect($('.ship.player1').length).toEqual(0);
+		});
+	});
 });

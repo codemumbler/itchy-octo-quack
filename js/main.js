@@ -69,6 +69,29 @@ mainApp.controller('MainAppController', function() {
 		return diagonalSteps + straightSteps;
 	};
 
+	var attack = function($ship, $coordinates) {
+		if ($coordinates.hasClass('planet player2')) {
+			if (this.random() < 0.2) {
+				$ship.remove();
+			} else {
+				$coordinates.removeClass('player2');
+			}
+		} else if ($coordinates.find('.ship.player2').length > 0){
+			var parent = this;
+			$coordinates.find('.ship.player2').each(function(index, data){
+				if (parent.random() >= 0.5) {
+					$ship.remove();
+				} else {
+					data.remove();
+				}
+			});
+		}
+	};
+
+	this.random = function() {
+		return Math.random();
+	};
+
 	this.getGridSize = function() {
 		var array = [];
 		for (var i = 0; i < 13; i++)
@@ -88,9 +111,11 @@ mainApp.controller('MainAppController', function() {
 	this.select = function(x,y) {
 		this.selected = $('.x-' + x + '.y-' + y);
 		if (this.prevSelected) {
-			if (this.prevSelected.hasClass('ship') && this.selected.find('.ship').length == 0) {
-				if (moveShip(this.prevSelected, this.selected))
+			if (this.prevSelected.hasClass('ship player1') && this.selected.find('.ship.player1').length == 0) {
+				if (moveShip(this.prevSelected, this.selected)) {
+					attack.call(this, this.prevSelected, this.selected);
 					return;
+				}
 			}
 			this.prevSelected.parent().removeClass('selected');
 		}
