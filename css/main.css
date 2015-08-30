@@ -58,3 +58,11 @@
   position: absolute;
   z-index: 30;
 }
+
+.player1 {
+  border: 1px dashed green;
+}
+
+.player2 {
+  border: 1px dashed gold;
+}

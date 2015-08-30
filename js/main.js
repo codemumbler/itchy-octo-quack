@@ -49,6 +49,16 @@ mainApp.controller('MainAppController', function() {
 			$('#defeatModal').modal('show');
 	};
 
+	var shipVictory = function() {
+		if ($('#shipVictoryModal').length != 0)
+			$('#shipVictoryModal').modal('show');
+	};
+
+	var shipDefeat = function() {
+		if ($('#shipDefeatModal').length != 0)
+			$('#shipDefeatModal').modal('show');
+	};
+
 	var moveShip = function($ship, $coordinates) {
 		var toTravel = distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
 		if (toTravel > $ship.data('moves'))
@@ -77,22 +87,22 @@ mainApp.controller('MainAppController', function() {
 			$coordinates.find('.ship.player2').each(function(index, data){
 				if (parent.random() >= 0.5) {
 					$ship.remove();
-					return false;
+					shipDefeat();
 				} else {
 					data.remove();
+					shipVictory();
 				}
 			});
 		}
 		if ($coordinates.hasClass('planet player2')) {
 			if (this.random() >= 0.2) {
 				$ship.remove();
-				return false;
+				shipDefeat();
 			} else {
 				$coordinates.removeClass('player2');
 				victory();
 			}
 		}
-		return true;
 	};
 
 	this.random = function() {
