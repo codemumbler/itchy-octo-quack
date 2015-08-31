@@ -86,12 +86,7 @@ describe('MainAppController', function() {
 
 		it('selecting saves selected grid', function(){
 			controller.select(0,0);
-			expect(controller.selected.attr('class')).toEqual('x-0 y-0');
-		});
-
-		it('selecting adds highlighting parent cell', function(){
-			controller.select(0,0);
-			expect(controller.selected.parent().attr('class')).toEqual('test-element selected');
+			expect(controller.selected.attr('class')).toEqual('x-0 y-0 selected');
 		});
 
 		it('selecting another removes highlighting', function(){

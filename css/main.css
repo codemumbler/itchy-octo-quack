@@ -25,7 +25,7 @@
   height: 100%;
 }
 
-.system-container .row > div.selected {
+.system-container .row > div .selected {
   border: 1px solid #FFF;
 }
 
@@ -52,6 +52,7 @@
 
 .selected.ship {
   border: 1px solid #FFF;
+  z-index: 25;
 }
 
 .work-queue {

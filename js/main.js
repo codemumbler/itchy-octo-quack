@@ -1,6 +1,8 @@
 //main.js
 var mainApp = angular.module('mainApp', []);
 mainApp.controller('MainAppController', function() {
+	var uniqueId = 0;
+
 	this.resources = 0;
 	this.turn = 1;
 	this.workQueue = 0;
@@ -12,6 +14,8 @@ mainApp.controller('MainAppController', function() {
 		this.turn++;
 		if (this.workQueue > 0)
 			buildShip.call(this);
+		clearPreviousSelection();
+		this.prevSelected = undefined;
 		$('.ship.player1').data('moves', 3);
 		endTurnModal();
 	};
@@ -27,6 +31,7 @@ mainApp.controller('MainAppController', function() {
 		this.workQueue--;
 		var ship = $('<div class="ship player1"/>');
 		ship.data('moves', 3);
+		ship.data('id', uniqueId++);
 		ship.appendTo('.planet.player1');
 	};
 
@@ -128,26 +133,37 @@ mainApp.controller('MainAppController', function() {
 	this.select = function(x,y) {
 		this.selected = $('.x-' + x + '.y-' + y);
 		if (this.prevSelected) {
-			if (this.prevSelected.hasClass('ship player1') && this.selected.find('.ship.player1').length == 0) {
+			if (this.prevSelected.hasClass('ship player1') && this.selected.find('.ship.player1').data('id') != this.prevSelected.data('id')) {
 				if (moveShip(this.prevSelected, this.selected)) {
 					attack.call(this, this.prevSelected, this.selected);
 					return;
 				}
 			}
-			this.prevSelected.parent().removeClass('selected');
-		}
-		if (this.prevSelected && this.prevSelected.hasClass('planet player1')) {
-			if (this.prevSelected && this.selected.hasClass('planet player1') && this.selected.attr('class') == this.prevSelected.attr('class')) {
+			if (this.prevSelected.hasClass('planet player1 selected') && this.selected.attr('class') == this.prevSelected.attr('class')) {
 				queueShip.call(this);
+				clearPreviousSelection();
+				this.prevSelected = undefined;
+				return;
 			}
-			this.selected = undefined;
-		} else if (this.selected.find('.ship').length > 0 && !this.selected.find('.ship').hasClass('selected')) {
-			$(this.selected.find('.ship')[0]).addClass('selected');
-			this.selected = $(this.selected.find('.ship')[0]);
-		} else {
-			this.selected.find('.ship').removeClass('selected');
-			this.selected.parent().addClass('selected');
 		}
+		if (this.selected.find('.ship').length > 0 && !this.selected.find('.ship').hasClass('selected')) {
+			this.selected.find('.ship:last').addClass('selected');
+			var parent = this;
+			$(this.selected.find('.ship').get().reverse()).each(function(index, data){
+				if ($(data).data('moves') > 0) {
+					parent.selected = $(data);
+					return false;
+				}
+				if (index == 0)
+					parent.selected = $(data);
+			});
+		}
+		clearPreviousSelection();
+		this.selected.addClass('selected');
 		this.prevSelected = this.selected;
+	};
+
+	var clearPreviousSelection = function() {
+		$('.selected').removeClass('selected');
 	};
 });
