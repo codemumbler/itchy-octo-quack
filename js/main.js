@@ -133,7 +133,9 @@ mainApp.controller('MainAppController', function() {
 	this.select = function(x,y) {
 		this.selected = $('.x-' + x + '.y-' + y);
 		if (this.prevSelected) {
-			if (this.prevSelected.hasClass('ship player1') && this.selected.find('.ship.player1').data('id') != this.prevSelected.data('id')) {
+			if (this.prevSelected.hasClass('ship player1') && !(this.selected.data('x') == this.prevSelected.parent().data('x')
+					&& this.selected.data('y') == this.prevSelected.parent().data('y'))
+					&& this.selected.find('.ship.player1').data('id') != this.prevSelected.data('id')) {
 				if (moveShip(this.prevSelected, this.selected)) {
 					attack.call(this, this.prevSelected, this.selected);
 					return;
@@ -146,7 +148,7 @@ mainApp.controller('MainAppController', function() {
 				return;
 			}
 		}
-		if (this.selected.find('.ship').length > 0 && !this.selected.find('.ship').hasClass('selected')) {
+		if (this.selected.find('.ship').length > 0 && this.selected.find('.ship.selected').length == 0) {
 			this.selected.find('.ship:last').addClass('selected');
 			var parent = this;
 			$(this.selected.find('.ship').get().reverse()).each(function(index, data){
@@ -154,8 +156,7 @@ mainApp.controller('MainAppController', function() {
 					parent.selected = $(data);
 					return false;
 				}
-				if (index == 0)
-					parent.selected = $(data);
+				parent.selected = $(data);
 			});
 		}
 		clearPreviousSelection();
