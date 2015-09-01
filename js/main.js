@@ -32,7 +32,7 @@ mainApp.controller('MainAppController', function() {
 		var ship = $('<div class="ship player1"/>');
 		ship.data('moves', 3);
 		ship.data('id', uniqueId++);
-		ship.appendTo('.planet.player1');
+		$('.planet.player1').append(ship);
 	};
 
 	var endTurnModal = function() {
@@ -91,23 +91,29 @@ mainApp.controller('MainAppController', function() {
 			var parent = this;
 			$coordinates.find('.ship.player2').each(function(index, data){
 				if (parent.random() >= 0.5) {
-					$ship.remove();
+					destroyShip.call(parent, $ship);
 					shipDefeat();
 				} else {
-					data.remove();
+					destroyShip.call(parent, $(data));
 					shipVictory();
 				}
 			});
 		}
 		if ($coordinates.hasClass('planet player2')) {
 			if (this.random() >= 0.2) {
-				$ship.remove();
+				destroyShip.call(this, $ship);
 				shipDefeat();
 			} else {
 				$coordinates.removeClass('player2');
 				victory();
 			}
 		}
+	};
+
+	var destroyShip = function($ship) {
+		$ship.remove();
+		if (this.prevSelected && this.prevSelected.hasClass('ship') && this.prevSelected.data('id') == $ship.data('id'))
+			this.prevSelected = undefined;
 	};
 
 	this.random = function() {
