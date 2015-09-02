@@ -40,6 +40,12 @@ describe('MainAppController', function() {
 			controller.resources = 10;
 		});
 
+		it('requesting ship queues with < 10 resources does not build', function() {
+			controller.resources = 9;
+			controller.select(0,0);
+			expect(controller.workQueue).toEqual(0);
+		});
+
 		it('requesting ship queues one ship to be built', function() {
 			controller.select(0,0);
 			expect(controller.workQueue).toEqual(1);

@@ -36,8 +36,6 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	var endTurnModal = function() {
-		if ($('#endTurnModal').length == 0)
-			return;
 		$('#endTurnModal').modal('show');
 		setTimeout(function(){
 			$('#endTurnModal').modal('hide');
@@ -45,23 +43,19 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	var victory = function() {
-		if ($('#victoryModal').length != 0)
-			$('#victoryModal').modal('show');
+		$('#victoryModal').modal('show');
 	};
 
 	var defeat = function() {
-		if ($('#defeatModal').length != 0)
-			$('#defeatModal').modal('show');
+		$('#defeatModal').modal('show');
 	};
 
 	var shipVictory = function() {
-		if ($('#shipVictoryModal').length != 0)
-			$('#shipVictoryModal').modal('show');
+		$('#shipVictoryModal').modal('show');
 	};
 
 	var shipDefeat = function() {
-		if ($('#shipDefeatModal').length != 0)
-			$('#shipDefeatModal').modal('show');
+		$('#shipDefeatModal').modal('show');
 	};
 
 	var moveShip = function($ship, $coordinates) {
