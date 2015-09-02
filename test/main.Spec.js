@@ -9,6 +9,7 @@ describe('MainAppController', function() {
 		controller = $controller('MainAppController', {});
 
 		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
+		$.fn.modal = function(){};
 	}));
 
 	afterEach(function(){
