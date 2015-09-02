@@ -90,7 +90,7 @@ mainApp.controller('MainAppController', function() {
 		if ($coordinates.find('.ship.player2').length > 0){
 			var parent = this;
 			$coordinates.find('.ship.player2').each(function(index, data){
-				if (parent.random() >= 0.5) {
+				if (Math.random() >= 0.5) {
 					destroyShip.call(parent, $ship);
 					shipDefeat();
 				} else {
@@ -100,7 +100,7 @@ mainApp.controller('MainAppController', function() {
 			});
 		}
 		if ($coordinates.hasClass('planet player2')) {
-			if (this.random() >= 0.2) {
+			if (Math.random() >= 0.2) {
 				destroyShip.call(this, $ship);
 				shipDefeat();
 			} else {
@@ -114,10 +114,6 @@ mainApp.controller('MainAppController', function() {
 		$ship.remove();
 		if (this.prevSelected && this.prevSelected.hasClass('ship') && this.prevSelected.data('id') == $ship.data('id'))
 			this.prevSelected = undefined;
-	};
-
-	this.random = function() {
-		return Math.random();
 	};
 
 	this.getGridSize = function() {

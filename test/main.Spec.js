@@ -178,8 +178,8 @@ describe('MainAppController', function() {
 		};
 
 		it('player1 ship attacks player2 planet - gets destroyed', function() {
-			controller.random = function(){
-				return 1;
+			Math.random = function(){
+				return 0.9;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
 			buildShip();
@@ -189,8 +189,8 @@ describe('MainAppController', function() {
 		});
 
 		it('when selected ship gets destroyed it is cleared', function() {
-			controller.random = function(){
-				return 1;
+			Math.random = function(){
+				return 0.9;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
 			buildShip();
@@ -203,7 +203,7 @@ describe('MainAppController', function() {
 		});
 
 		it('player1 ship attacks player2 planet - planet dies', function() {
-			controller.random = function(){
+			Math.random = function(){
 				return 0;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
@@ -214,8 +214,8 @@ describe('MainAppController', function() {
 		});
 
 		it('player1 ship attacks player2 ship - player1 dies', function() {
-			controller.random = function(){
-				return 1;
+			Math.random = function(){
+				return 0.9;
 			};
 			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/></div>');
 			buildShip();
@@ -225,7 +225,7 @@ describe('MainAppController', function() {
 		});
 
 		it('player1 ship attacks player2 ship - player2 dies', function() {
-			controller.random = function(){
+			Math.random = function(){
 				return 0;
 			};
 			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/></div>');
@@ -237,7 +237,7 @@ describe('MainAppController', function() {
 
 		it('player1 ship attacks 2 player2 ships - 1 player2 dies and player1 dies', function() {
 			var count = 0;
-			controller.random = function(){
+			Math.random = function(){
 				return count++;
 			};
 			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2"/><div class="ship player2"/></div>');
@@ -250,7 +250,7 @@ describe('MainAppController', function() {
 
 		it('player1 ship attacks player2 ship and planet - 1 player2 ship dies and player1 ship dies', function() {
 			var count = 0;
-			controller.random = function(){
+			Math.random = function(){
 				return count++;
 			};
 			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"><div class="ship player2"/></div>');
