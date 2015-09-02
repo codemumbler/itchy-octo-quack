@@ -93,12 +93,12 @@ describe('MainAppController', function() {
 
 		it('selecting saves selected grid', function(){
 			controller.select(0,0);
-			expect(controller.selected.attr('class')).toEqual('x-0 y-0 selected');
+			expect($('.selected').attr('class')).toEqual('x-0 y-0 selected');
 		});
 
 		it('selecting another removes highlighting', function(){
 			controller.select(0,0);
-			var savedSelected = controller.selected;
+			var savedSelected = $('.selected');
 			controller.select(1,1);
 			expect(savedSelected.parent().attr('class')).toEqual('test-element');
 		});
@@ -116,7 +116,7 @@ describe('MainAppController', function() {
 		it('select ship to move', function(){
 			buildShip();
 			controller.select(0,0);
-			expect(controller.prevSelected.hasClass('ship player1 selected')).toBe(true);
+			expect($('.selected').hasClass('ship player1 selected')).toBe(true);
 		});
 
 		it('selects a ship with moves remaining', function(){
@@ -149,7 +149,7 @@ describe('MainAppController', function() {
 			buildShip();
 			controller.select(0,0);
 			controller.select(0,0);
-			expect(controller.prevSelected.hasClass('planet')).toBe(true);
+			expect($('.selected').hasClass('planet')).toBe(true);
 		});
 
 		it('can queue ship when ship on planet', function(){

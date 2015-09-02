@@ -1,13 +1,12 @@
-//main.js
 var mainApp = angular.module('mainApp', []);
 mainApp.controller('MainAppController', function() {
 	var uniqueId = 0;
+	var selected = undefined;
+	var prevSelected = undefined;
 
 	this.resources = 0;
 	this.turn = 1;
 	this.workQueue = 0;
-	this.selected = undefined;
-	this.prevSelected = undefined;
 
 	this.endTurn = function() {
 		this.resources += 7
@@ -15,7 +14,7 @@ mainApp.controller('MainAppController', function() {
 		if (this.workQueue > 0)
 			buildShip.call(this);
 		clearPreviousSelection();
-		this.prevSelected = undefined;
+		prevSelected = undefined;
 		$('.ship.player1').data('moves', 3);
 		endTurnModal();
 	};
@@ -106,8 +105,8 @@ mainApp.controller('MainAppController', function() {
 
 	var destroyShip = function($ship) {
 		$ship.remove();
-		if (this.prevSelected && this.prevSelected.hasClass('ship') && this.prevSelected.data('id') == $ship.data('id'))
-			this.prevSelected = undefined;
+		if (prevSelected && prevSelected.hasClass('ship') && prevSelected.data('id') == $ship.data('id'))
+			prevSelected = undefined;
 	};
 
 	this.getGridSize = function() {
@@ -127,37 +126,37 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	this.select = function(x,y) {
-		this.selected = $('.x-' + x + '.y-' + y);
-		if (this.prevSelected) {
-			if (this.prevSelected.hasClass('ship player1') && !(this.selected.data('x') == this.prevSelected.parent().data('x')
-					&& this.selected.data('y') == this.prevSelected.parent().data('y'))
-					&& this.selected.find('.ship.player1').data('id') != this.prevSelected.data('id')) {
-				if (moveShip(this.prevSelected, this.selected)) {
-					attack.call(this, this.prevSelected, this.selected);
+		selected = $('.x-' + x + '.y-' + y);
+		if (prevSelected) {
+			if (prevSelected.hasClass('ship player1') && !(selected.data('x') == prevSelected.parent().data('x')
+					&& selected.data('y') == prevSelected.parent().data('y'))
+					&& selected.find('.ship.player1').data('id') != prevSelected.data('id')) {
+				if (moveShip(prevSelected, selected)) {
+					attack.call(this, prevSelected, selected);
 					return;
 				}
 			}
-			if (this.prevSelected.hasClass('planet player1 selected') && this.selected.attr('class') == this.prevSelected.attr('class')) {
+			if (prevSelected.hasClass('planet player1 selected') && selected.attr('class') == prevSelected.attr('class')) {
 				queueShip.call(this);
 				clearPreviousSelection();
-				this.prevSelected = undefined;
+				prevSelected = undefined;
 				return;
 			}
 		}
-		if (this.selected.find('.ship').length > 0 && this.selected.find('.ship.selected').length == 0) {
-			this.selected.find('.ship:last').addClass('selected');
+		if (selected.find('.ship').length > 0 && selected.find('.ship.selected').length == 0) {
+			selected.find('.ship:last').addClass('selected');
 			var parent = this;
-			$(this.selected.find('.ship').get().reverse()).each(function(index, data){
+			$(selected.find('.ship').get().reverse()).each(function(index, data){
 				if ($(data).data('moves') > 0) {
-					parent.selected = $(data);
+					selected = $(data);
 					return false;
 				}
-				parent.selected = $(data);
+				selected = $(data);
 			});
 		}
 		clearPreviousSelection();
-		this.selected.addClass('selected');
-		this.prevSelected = this.selected;
+		selected.addClass('selected');
+		prevSelected = selected;
 	};
 
 	var clearPreviousSelection = function() {
