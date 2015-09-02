@@ -188,6 +188,20 @@ describe('MainAppController', function() {
 			expect($('.ship').length).toEqual(0);
 		});
 
+		it('when selected ship gets destroyed it is cleared', function() {
+			controller.random = function(){
+				return 1;
+			};
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"/>');
+			buildShip();
+			controller.select(0,0);
+			buildShip();
+			controller.select(0,0);
+			controller.select(1,1);
+			controller.select(0,0);
+			expect($('.ship').length).toEqual(1);
+		});
+
 		it('player1 ship attacks player2 planet - planet dies', function() {
 			controller.random = function(){
 				return 0;
