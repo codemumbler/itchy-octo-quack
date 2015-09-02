@@ -112,6 +112,24 @@ describe('MainAppController', function() {
 			expect(controller.prevSelected.hasClass('ship player1 selected')).toBe(true);
 		});
 
+		it('selects a ship with moves remaining', function(){
+			buildShip();
+			controller.select(0,0);
+			buildShip();
+			$('.ship:first').data('moves', 0);
+			controller.select(0,0);
+			expect($('.ship.selected').data('moves')).toEqual(3);
+		});
+
+		it('selects a ship when no ships have moves', function(){
+			buildShip();
+			controller.select(0,0);
+			buildShip();
+			$('.ship').data('moves', 0);
+			controller.select(0,0);
+			expect($('.ship.selected').data('moves')).toEqual(0);
+		});
+
 		it('select grid to move ship', function(){
 			$('.test-element').append('<div class="x-1 y-0" data-x="1" data-y="0"/>');
 			buildShip();
