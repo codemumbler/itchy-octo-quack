@@ -29,9 +29,9 @@ describe('MainAppController', function() {
 		});
 
 		it('end turn does not change work queue if empty', function() {
-			controller.workQueue = 0;
+			playerModel.workQueue = 0;
 			controller.endTurn();
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 	});
 
@@ -45,12 +45,12 @@ describe('MainAppController', function() {
 		it('requesting ship queues with < 10 resources does not build', function() {
 			playerModel.resources = 9;
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 
 		it('requesting ship queues one ship to be built', function() {
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(1);
+			expect(playerModel.workQueue).toEqual(1);
 		});
 
 		it('requesting ship built costs 10 resources', function() {
@@ -61,13 +61,13 @@ describe('MainAppController', function() {
 		it('requested ship build after turn', function() {
 			controller.select(0,0);
 			controller.endTurn();
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 
 		it('planet grid must be selected before queueing ship', function() {
 			controller.select(1,1);
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 	});
 
@@ -159,7 +159,7 @@ describe('MainAppController', function() {
 			controller.select(0,0);
 			controller.select(0,0);
 			controller.select(0,0);
-			expect(controller.workQueue).toBe(1);
+			expect(playerModel.workQueue).toBe(1);
 		});
 
 		it('can move 3 spaces per turn', function() {

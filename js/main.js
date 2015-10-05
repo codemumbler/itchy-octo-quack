@@ -1,7 +1,8 @@
 var mainApp = angular.module('mainApp', []);
 mainApp.factory('playerModel', function(){
 	return {
-		resources: 0
+		resources: 0,
+		workQueue: 0
 	};
 });
 mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
@@ -10,7 +11,6 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	var prevSelected = undefined;
 
 	this.turn = 1;
-	this.workQueue = 0;
 
 	this.getResources = function() {
 		return playerModel.resources;
@@ -19,7 +19,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	this.endTurn = function() {
 		playerModel.resources += 7;
 		this.turn++;
-		if (this.workQueue > 0)
+		if (playerModel.workQueue > 0)
 			buildShip.call(this);
 		clearPreviousSelection();
 		prevSelected = undefined;
@@ -30,12 +30,12 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	var queueShip = function() {
 		if (playerModel.resources >= 10) {
 			playerModel.resources -= 10;
-			this.workQueue++;
+			playerModel.workQueue++;
 		}
 	};
 
 	var buildShip = function() {
-		this.workQueue--;
+		playerModel.workQueue--;
 		var ship = $('<div class="ship player1"/>');
 		ship.data('moves', 3);
 		ship.data('id', uniqueId++);
