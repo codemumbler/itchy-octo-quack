@@ -1,15 +1,23 @@
 var mainApp = angular.module('mainApp', []);
-mainApp.controller('MainAppController', function() {
+mainApp.factory('playerModel', function(){
+	return {
+		resources: 0
+	};
+});
+mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	var uniqueId = 0;
 	var selected = undefined;
 	var prevSelected = undefined;
 
-	this.resources = 0;
 	this.turn = 1;
 	this.workQueue = 0;
 
+	this.getResources = function() {
+		return playerModel.resources;
+	};
+
 	this.endTurn = function() {
-		this.resources += 7
+		playerModel.resources += 7;
 		this.turn++;
 		if (this.workQueue > 0)
 			buildShip.call(this);
@@ -20,8 +28,8 @@ mainApp.controller('MainAppController', function() {
 	};
 
 	var queueShip = function() {
-		if (this.resources >= 10) {
-			this.resources -= 10;
+		if (playerModel.resources >= 10) {
+			playerModel.resources -= 10;
 			this.workQueue++;
 		}
 	};
@@ -162,4 +170,4 @@ mainApp.controller('MainAppController', function() {
 	var clearPreviousSelection = function() {
 		$('.selected').removeClass('selected');
 	};
-});
+}]);
