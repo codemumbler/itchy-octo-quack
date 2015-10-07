@@ -1,12 +1,13 @@
 describe('MainAppController', function() {
 	beforeEach(module('mainApp'));
 
-	var $controller, controller;
+	var $controller, controller, playerModel;
 
-	beforeEach(inject(function(_$controller_) {
+	beforeEach(inject(function(_$controller_, $injector) {
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
-		controller = $controller('MainAppController', {});
+		playerModel = $injector.get('playerModel');
+		controller = $controller('MainAppController', playerModel);
 
 		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
 		$.fn.modal = function(){};
@@ -19,7 +20,7 @@ describe('MainAppController', function() {
 	describe('$controller.endTurn', function() {
 		it('ending turn adds resources', function() {
 			controller.endTurn();
-			expect(controller.resources).toEqual(7);
+			expect(playerModel.resources).toEqual(7);
 		});
 
 		it('ending turn increments turn counter', function() {
@@ -28,9 +29,9 @@ describe('MainAppController', function() {
 		});
 
 		it('end turn does not change work queue if empty', function() {
-			controller.workQueue = 0;
+			playerModel.workQueue = 0;
 			controller.endTurn();
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 	});
 
@@ -38,35 +39,35 @@ describe('MainAppController', function() {
 		beforeEach(function() {
 			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
-			controller.resources = 10;
+			playerModel.resources = 10;
 		});
 
 		it('requesting ship queues with < 10 resources does not build', function() {
-			controller.resources = 9;
+			playerModel.resources = 9;
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 
 		it('requesting ship queues one ship to be built', function() {
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(1);
+			expect(playerModel.workQueue).toEqual(1);
 		});
 
 		it('requesting ship built costs 10 resources', function() {
 			controller.select(0,0);
-			expect(controller.resources).toEqual(0);
+			expect(playerModel.resources).toEqual(0);
 		});
 
 		it('requested ship build after turn', function() {
 			controller.select(0,0);
 			controller.endTurn();
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 
 		it('planet grid must be selected before queueing ship', function() {
 			controller.select(1,1);
 			controller.select(0,0);
-			expect(controller.workQueue).toEqual(0);
+			expect(playerModel.workQueue).toEqual(0);
 		});
 	});
 
@@ -106,7 +107,7 @@ describe('MainAppController', function() {
 
 	describe('ship movement', function(){
 		var buildShip = function() {
-			controller.resources = 10;
+			playerModel.resources = 10;
 			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
 			controller.select(0,0);
@@ -154,11 +155,11 @@ describe('MainAppController', function() {
 
 		it('can queue ship when ship on planet', function(){
 			buildShip();
-			controller.resources = 10;
+			playerModel.resources = 10;
 			controller.select(0,0);
 			controller.select(0,0);
 			controller.select(0,0);
-			expect(controller.workQueue).toBe(1);
+			expect(playerModel.workQueue).toBe(1);
 		});
 
 		it('can move 3 spaces per turn', function() {
@@ -195,7 +196,7 @@ describe('MainAppController', function() {
 
 	describe('ship attack', function(){
 		var buildShip = function() {
-			controller.resources = 10;
+			playerModel.resources = 10;
 			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
 			controller.select(0,0);

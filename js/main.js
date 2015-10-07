@@ -1,37 +1,47 @@
 var mainApp = angular.module('mainApp', []);
-mainApp.controller('MainAppController', function() {
+mainApp.factory('playerModel', function(){
 	var uniqueId = 0;
+	
+	return {
+		resources: 0,
+		workQueue: 0,
+		endTurn: function() {
+			this.resources += 7;
+			if (this.workQueue > 0)
+				this.buildShip();
+		},
+		queueShip: function() {
+			if (this.resources >= 10) {
+				this.resources -= 10;
+				this.workQueue++;
+			}
+		},
+		buildShip: function() {
+			this.workQueue--;
+			var ship = $('<div class="ship player1"/>');
+			ship.data('moves', 3);
+			ship.data('id', uniqueId++);
+			$('.planet.player1').append(ship);
+		}
+	};
+});
+mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	var selected = undefined;
 	var prevSelected = undefined;
 
-	this.resources = 0;
 	this.turn = 1;
-	this.workQueue = 0;
+
+	this.getResources = function() {
+		return playerModel.resources;
+	};
 
 	this.endTurn = function() {
-		this.resources += 7
+		playerModel.endTurn();
 		this.turn++;
-		if (this.workQueue > 0)
-			buildShip.call(this);
 		clearPreviousSelection();
 		prevSelected = undefined;
 		$('.ship.player1').data('moves', 3);
 		endTurnModal();
-	};
-
-	var queueShip = function() {
-		if (this.resources >= 10) {
-			this.resources -= 10;
-			this.workQueue++;
-		}
-	};
-
-	var buildShip = function() {
-		this.workQueue--;
-		var ship = $('<div class="ship player1"/>');
-		ship.data('moves', 3);
-		ship.data('id', uniqueId++);
-		$('.planet.player1').append(ship);
 	};
 
 	var endTurnModal = function() {
@@ -137,7 +147,7 @@ mainApp.controller('MainAppController', function() {
 				}
 			}
 			if (prevSelected.hasClass('planet player1 selected') && selected.attr('class') == prevSelected.attr('class')) {
-				queueShip.call(this);
+				playerModel.queueShip();
 				clearPreviousSelection();
 				prevSelected = undefined;
 				return;
@@ -162,4 +172,4 @@ mainApp.controller('MainAppController', function() {
 	var clearPreviousSelection = function() {
 		$('.selected').removeClass('selected');
 	};
-});
+}]);
