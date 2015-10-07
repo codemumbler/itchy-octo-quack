@@ -2,7 +2,10 @@ var mainApp = angular.module('mainApp', []);
 mainApp.factory('playerModel', function(){
 	return {
 		resources: 0,
-		workQueue: 0
+		workQueue: 0,
+		endTurn : function() {
+			this.resources += 7;
+		}
 	};
 });
 mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
@@ -17,7 +20,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	};
 
 	this.endTurn = function() {
-		playerModel.resources += 7;
+		playerModel.endTurn();
 		this.turn++;
 		if (playerModel.workQueue > 0)
 			buildShip.call(this);
