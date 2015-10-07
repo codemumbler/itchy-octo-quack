@@ -1,15 +1,31 @@
 var mainApp = angular.module('mainApp', []);
 mainApp.factory('playerModel', function(){
+	var uniqueId = 0;
+	
 	return {
 		resources: 0,
 		workQueue: 0,
-		endTurn : function() {
+		endTurn: function() {
 			this.resources += 7;
+			if (this.workQueue > 0)
+				this.buildShip();
+		},
+		queueShip: function() {
+			if (this.resources >= 10) {
+				this.resources -= 10;
+				this.workQueue++;
+			}
+		},
+		buildShip: function() {
+			this.workQueue--;
+			var ship = $('<div class="ship player1"/>');
+			ship.data('moves', 3);
+			ship.data('id', uniqueId++);
+			$('.planet.player1').append(ship);
 		}
 	};
 });
 mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
-	var uniqueId = 0;
 	var selected = undefined;
 	var prevSelected = undefined;
 
@@ -22,27 +38,10 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	this.endTurn = function() {
 		playerModel.endTurn();
 		this.turn++;
-		if (playerModel.workQueue > 0)
-			buildShip.call(this);
 		clearPreviousSelection();
 		prevSelected = undefined;
 		$('.ship.player1').data('moves', 3);
 		endTurnModal();
-	};
-
-	var queueShip = function() {
-		if (playerModel.resources >= 10) {
-			playerModel.resources -= 10;
-			playerModel.workQueue++;
-		}
-	};
-
-	var buildShip = function() {
-		playerModel.workQueue--;
-		var ship = $('<div class="ship player1"/>');
-		ship.data('moves', 3);
-		ship.data('id', uniqueId++);
-		$('.planet.player1').append(ship);
 	};
 
 	var endTurnModal = function() {
@@ -148,7 +147,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 				}
 			}
 			if (prevSelected.hasClass('planet player1 selected') && selected.attr('class') == prevSelected.attr('class')) {
-				queueShip.call(this);
+				playerModel.queueShip();
 				clearPreviousSelection();
 				prevSelected = undefined;
 				return;
