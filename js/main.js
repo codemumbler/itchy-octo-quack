@@ -1,23 +1,27 @@
 var mainApp = angular.module('mainApp', []);
 mainApp.factory('playerModel', function(){
 	var uniqueId = 0;
-	
+	var player = function() {
+		return {
+			resources: 0,
+			workQueue: 0
+		};
+	};
 	return {
-		resources: 0,
-		workQueue: 0,
+		player1: player(),
 		endTurn: function() {
-			this.resources += 7;
-			if (this.workQueue > 0)
+			this.player1.resources += 7;
+			if (this.player1.workQueue > 0)
 				this.buildShip();
 		},
 		queueShip: function() {
-			if (this.resources >= 10) {
-				this.resources -= 10;
-				this.workQueue++;
+			if (this.player1.resources >= 10) {
+				this.player1.resources -= 10;
+				this.player1.workQueue++;
 			}
 		},
 		buildShip: function() {
-			this.workQueue--;
+			this.player1.workQueue--;
 			var ship = $('<div class="ship player1"/>');
 			ship.data('moves', 3);
 			ship.data('id', uniqueId++);
@@ -32,7 +36,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	this.turn = 1;
 
 	this.getResources = function() {
-		return playerModel.resources;
+		return playerModel.player1.resources;
 	};
 
 	this.endTurn = function() {
