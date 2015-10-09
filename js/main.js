@@ -1,15 +1,8 @@
 var mainApp = angular.module('mainApp', []);
 mainApp.factory('playerModel', function(){
 	var uniqueId = 0;
-	var player = function(name) {
-		return {
-			resources: 0,
-			workQueue: 0,
-			'name': name
-		};
-	};
 	return {
-		player1: player('player1'),
+		players: [],
 		currentPlayer: null,
 		endTurn: function() {
 			this.currentPlayer.resources += 7;
@@ -29,6 +22,13 @@ mainApp.factory('playerModel', function(){
 			ship.data('moves', 3);
 			ship.data('id', uniqueId++);
 			$('.planet.' + this.currentPlayer.name).append(ship);
+		},
+		addPlayer: function(name) {
+			this.players.push({
+				resources: 0,
+				workQueue: 0,
+				'name': name
+			});
 		}
 	};
 });
@@ -37,10 +37,14 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	var prevSelected = undefined;
 
 	this.turn = 1;
-	playerModel.currentPlayer = playerModel.player1;
+
+	playerModel.addPlayer('player1');
+	playerModel.currentPlayer = playerModel.players[0];
+
+	var currentPlayer = playerModel.players[0];
 
 	this.getResources = function() {
-		return playerModel.player1.resources;
+		return currentPlayer.resources;
 	};
 
 	this.endTurn = function() {
@@ -48,7 +52,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 		this.turn++;
 		clearPreviousSelection();
 		prevSelected = undefined;
-		$('.ship.' + playerModel.currentPlayer.name).data('moves', 3);
+		$('.ship.' + currentPlayer.name).data('moves', 3);
 		endTurnModal();
 	};
 
@@ -146,15 +150,15 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	this.select = function(x,y) {
 		selected = $('.x-' + x + '.y-' + y);
 		if (prevSelected) {
-			if (prevSelected.hasClass('ship ' + playerModel.currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x')
+			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x')
 					&& selected.data('y') == prevSelected.parent().data('y'))
-					&& selected.find('.ship.' + playerModel.currentPlayer.name).data('id') != prevSelected.data('id')) {
+					&& selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
 				if (moveShip(prevSelected, selected)) {
 					attack.call(this, prevSelected, selected);
 					return;
 				}
 			}
-			if (prevSelected.hasClass('planet ' + playerModel.currentPlayer.name + ' selected') && selected.attr('class') == prevSelected.attr('class')) {
+			if (prevSelected.hasClass('planet ' + currentPlayer.name + ' selected') && selected.attr('class') == prevSelected.attr('class')) {
 				playerModel.queueShip();
 				clearPreviousSelection();
 				prevSelected = undefined;
