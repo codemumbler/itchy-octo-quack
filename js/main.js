@@ -15,6 +15,10 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 		return currentPlayer.resources;
 	};
 
+	this.getWorkQueue = function() {
+		return currentPlayer.workQueue;
+	};
+
 	this.endTurn = function() {
 		playerModel.endTurn();
 		this.turn++;
