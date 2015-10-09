@@ -34,6 +34,10 @@ describe('MainAppController', function() {
 			controller.endTurn();
 			expect(player1.workQueue).toEqual(0);
 		});
+
+		it('two players', function() {
+			expect(playerModel.players.length).toBe(2);
+		});
 	});
 
 	describe('$controller.queueShip', function() {
