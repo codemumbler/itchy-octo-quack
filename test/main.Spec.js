@@ -19,20 +19,9 @@ describe('MainAppController', function() {
 	});
 
 	describe('$controller.endTurn', function() {
-		it('ending turn adds resources', function() {
-			controller.endTurn();
-			expect(player1.resources).toEqual(7);
-		});
-
 		it('ending turn increments turn counter', function() {
 			controller.endTurn();
 			expect(controller.turn).toEqual(2);
-		});
-
-		it('end turn does not change work queue if empty', function() {
-			player1.workQueue = 0;
-			controller.endTurn();
-			expect(player1.workQueue).toEqual(0);
 		});
 
 		it('two players', function() {
@@ -45,28 +34,6 @@ describe('MainAppController', function() {
 			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
 			player1.resources = 10;
-		});
-
-		it('requesting ship queues with < 10 resources does not build', function() {
-			player1.resources = 9;
-			controller.select(0,0);
-			expect(player1.workQueue).toEqual(0);
-		});
-
-		it('requesting ship queues one ship to be built', function() {
-			controller.select(0,0);
-			expect(player1.workQueue).toEqual(1);
-		});
-
-		it('requesting ship built costs 10 resources', function() {
-			controller.select(0,0);
-			expect(player1.resources).toEqual(0);
-		});
-
-		it('requested ship build after turn', function() {
-			controller.select(0,0);
-			controller.endTurn();
-			expect(player1.workQueue).toEqual(0);
 		});
 
 		it('planet grid must be selected before queueing ship', function() {
