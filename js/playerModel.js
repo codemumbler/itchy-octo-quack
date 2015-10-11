@@ -22,10 +22,11 @@ mainApp.factory('playerModel', function(){
 			ship.data('id', uniqueId++);
 			$('.planet.' + this.currentPlayer.name).append(ship);
 		},
-		addPlayer: function(name) {
+		addPlayer: function(name, isAI) {
 			this.players.push({
 				resources: 0,
 				workQueue: 0,
+				'isAI': isAI,
 				'name': name
 			});
 		}
