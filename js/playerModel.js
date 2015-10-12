@@ -1,5 +1,6 @@
 mainApp.factory('playerModel', function(){
 	var uniqueId = 0;
+	var currentPlayerIndex = -1;
 	return {
 		players: [],
 		currentPlayer: null,
@@ -26,9 +27,13 @@ mainApp.factory('playerModel', function(){
 			this.players.push({
 				resources: 0,
 				workQueue: 0,
-				'isAI': isAI,
+				'isAI': (isAI ? true : false),
 				'name': name
 			});
+		},
+		nextPlayer: function() {
+			currentPlayerIndex = ((++currentPlayerIndex) % this.players.length);
+			this.currentPlayer = this.players[currentPlayerIndex];
 		}
 	};
 });

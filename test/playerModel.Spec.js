@@ -22,15 +22,33 @@ describe('Player Model tests', function() {
 			playerModel.endTurn();
 			expect(player1.workQueue).toEqual(0);
 		});
+	});
+
+	describe('Multi-player', function(){
+		var player2;
+		beforeEach(function(){
+			playerModel.nextPlayer();
+			playerModel.addPlayer('player2', true);
+			player2 = playerModel.players[1];
+		});
 
 		it('Add a second player', function(){
-			playerModel.addPlayer('player2');
 			expect(playerModel.players.length).toBe(2);
 		});
 
 		it('Add a second computer-based player', function(){
-			playerModel.addPlayer('player2', true);
-			expect(playerModel.players[1].isAI).toBe(true);
+			expect(player2.isAI).toBe(true);
+		});
+
+		it('nextPlayer moves ahead', function(){
+			playerModel.nextPlayer();
+			expect(playerModel.currentPlayer).toBe(player2);
+		});
+
+		it('nextPlayer loops back to the first', function(){
+			playerModel.nextPlayer();
+			playerModel.nextPlayer();
+			expect(playerModel.currentPlayer).toBe(player1);
 		});
 	});
 
