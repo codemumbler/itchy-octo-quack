@@ -6,10 +6,10 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 	this.turn = 1;
 
 	playerModel.addPlayer('player1');
-	playerModel.addPlayer('player2');
-	playerModel.currentPlayer = playerModel.players[0];
+	playerModel.addPlayer('player2', true);
+	playerModel.nextPlayer();
 
-	var currentPlayer = playerModel.players[0];
+	var currentPlayer = playerModel.currentPlayer;
 
 	this.getResources = function() {
 		return currentPlayer.resources;
@@ -21,11 +21,19 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 
 	this.endTurn = function() {
 		playerModel.endTurn();
-		this.turn++;
 		clearPreviousSelection();
 		prevSelected = undefined;
 		$('.ship.' + currentPlayer.name).data('moves', 3);
 		endTurnModal();
+		playerModel.nextPlayer();
+		while (playerModel.currentPlayer.isAI) {
+			if (playerModel.currentPlayer.resources >= 10)
+				playerModel.queueShip();
+			playerModel.endTurn();
+			playerModel.nextPlayer();
+		}
+		this.turn++;
+
 	};
 
 	var endTurnModal = function() {

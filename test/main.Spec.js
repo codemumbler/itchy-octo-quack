@@ -29,6 +29,15 @@ describe('MainAppController', function() {
 		});
 	});
 
+	describe('computer player', function(){
+		it('player 2 queues ship', function(){
+			$('.x-0.y-0').addClass('planet player2');
+			playerModel.players[1].resources = 10;
+			controller.endTurn();
+			expect($('.ship.player2').length).toBe(1);
+		});
+	});
+
 	describe('$controller.queueShip', function() {
 		beforeEach(function() {
 			$('.x-0.y-0').addClass('planet player1');
