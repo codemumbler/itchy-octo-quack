@@ -8,7 +8,8 @@ describe('MainAppController', function() {
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$controller = _$controller_;
 		playerModel = $injector.get('playerModel');
-		controller = $controller('MainAppController', playerModel);
+		var aiService = $injector.get('aiService');
+		controller = $controller('MainAppController', playerModel, aiService);
 		player1 = playerModel.players[0];
 		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
 		$.fn.modal = function(){};
@@ -26,15 +27,6 @@ describe('MainAppController', function() {
 
 		it('two players', function() {
 			expect(playerModel.players.length).toBe(2);
-		});
-	});
-
-	describe('computer player', function(){
-		it('player 2 queues ship', function(){
-			$('.x-0.y-0').addClass('planet player2');
-			playerModel.players[1].resources = 10;
-			controller.endTurn();
-			expect($('.ship.player2').length).toBe(1);
 		});
 	});
 

@@ -1,5 +1,5 @@
 var mainApp = angular.module('mainApp', []);
-mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
+mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(playerModel, aiService) {
 	var selected = undefined;
 	var prevSelected = undefined;
 
@@ -27,8 +27,7 @@ mainApp.controller('MainAppController', [ 'playerModel', function(playerModel) {
 		endTurnModal();
 		playerModel.nextPlayer();
 		while (playerModel.currentPlayer.isAI) {
-			if (playerModel.currentPlayer.resources >= 10)
-				playerModel.queueShip();
+			aiService.executeTurn(playerModel.currentPlayer);
 			playerModel.endTurn();
 			playerModel.nextPlayer();
 		}
