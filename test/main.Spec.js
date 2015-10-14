@@ -9,7 +9,8 @@ describe('MainAppController', function() {
 		$controller = _$controller_;
 		playerModel = $injector.get('playerModel');
 		var aiService = $injector.get('aiService');
-		controller = $controller('MainAppController', playerModel, aiService);
+		var gridService = $injector.get('gridService');
+		controller = $controller('MainAppController', playerModel, aiService, gridService);
 		player1 = playerModel.players[0];
 		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
 		$.fn.modal = function(){};
@@ -45,26 +46,6 @@ describe('MainAppController', function() {
 	});
 
 	describe('$controller.grid', function() {
-		it('get grid size', function() {
-			expect(controller.getGridSize().length).toEqual(13);
-		});
-
-		it('has object - sun', function() {
-			expect(controller.hasObject(6,6)).toEqual('sun');
-		});
-
-		it('has object - planet', function() {
-			expect(controller.hasObject(4,10)).toEqual('planet player1');
-		});
-
-		it('has object - planet', function() {
-			expect(controller.hasObject(9,3)).toEqual('planet player2');
-		});
-
-		it('has object - nothing there', function() {
-			expect(controller.hasObject(0,0)).toEqual(undefined);
-		});
-
 		it('selecting saves selected grid', function(){
 			controller.select(0,0);
 			expect($('.selected').attr('class')).toEqual('x-0 y-0 selected');

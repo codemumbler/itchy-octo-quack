@@ -1,5 +1,5 @@
 var mainApp = angular.module('mainApp', []);
-mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(playerModel, aiService) {
+mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridService', function(playerModel, aiService, gridService) {
 	var selected = undefined;
 	var prevSelected = undefined;
 
@@ -32,12 +32,11 @@ mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(p
 			playerModel.nextPlayer();
 		}
 		this.turn++;
-
 	};
 
 	var endTurnModal = function() {
 		$('#endTurnModal').modal('show');
-		setTimeout(function(){
+		setTimeout(function() {
 			$('#endTurnModal').modal('hide');
 		}, 100);
 	};
@@ -59,7 +58,7 @@ mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(p
 	};
 
 	var moveShip = function($ship, $coordinates) {
-		var toTravel = distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
+		var toTravel = gridService.distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
 		if (toTravel > $ship.data('moves'))
 			return false;
 		$ship.data('moves', $ship.data('moves') - toTravel);
@@ -67,23 +66,10 @@ mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(p
 		return true;
 	};
 
-	var distance = function(x1, y1, x2, y2) {
-		var dx = Math.abs(x2 - x1);
-		var dy = Math.abs(y2 - y1);
-
-		var min = Math.min(dx, dy);
-		var max = Math.max(dx, dy);
-
-		var diagonalSteps = min;
-		var straightSteps = max - min;
-
-		return diagonalSteps + straightSteps;
-	};
-
 	var attack = function($ship, $coordinates) {
-		if ($coordinates.find('.ship.player2').length > 0){
+		if ($coordinates.find('.ship.player2').length > 0) {
 			var parent = this;
-			$coordinates.find('.ship.player2').each(function(index, data){
+			$coordinates.find('.ship.player2').each(function(index, data) {
 				if (Math.random() >= 0.5) {
 					destroyShip.call(parent, $ship);
 					shipDefeat();
@@ -111,27 +97,17 @@ mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(p
 	};
 
 	this.getGridSize = function() {
-		var array = [];
-		for (var i = 0; i < 13; i++)
-			array.push(i);
-		return array;
+		return gridService.getGridSize();
 	};
 
-	this.hasObject = function(x,y) {
-		if (x==6 && y==6)
-			return 'sun';
-		if (x==9 && y==3)
-			return 'planet player2';
-		if (x==4 && y==10)
-			return 'planet player1';
+	this.hasObject = function(x, y) {
+		return gridService.hasObject(x, y);
 	};
 
-	this.select = function(x,y) {
+	this.select = function(x, y) {
 		selected = $('.x-' + x + '.y-' + y);
 		if (prevSelected) {
-			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x')
-					&& selected.data('y') == prevSelected.parent().data('y'))
-					&& selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
+			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x') && selected.data('y') == prevSelected.parent().data('y')) && selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
 				if (moveShip(prevSelected, selected)) {
 					attack.call(this, prevSelected, selected);
 					return;
@@ -147,7 +123,7 @@ mainApp.controller('MainAppController', [ 'playerModel', 'aiService', function(p
 		if (selected.find('.ship').length > 0 && selected.find('.ship.selected').length == 0) {
 			selected.find('.ship:last').addClass('selected');
 			var parent = this;
-			$(selected.find('.ship').get().reverse()).each(function(index, data){
+			$(selected.find('.ship').get().reverse()).each(function(index, data) {
 				if ($(data).data('moves') > 0) {
 					selected = $(data);
 					return false;
