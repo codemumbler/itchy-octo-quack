@@ -18,5 +18,10 @@ describe('Ai Service tests', function() {
 			aiService.executeTurn(aiPlayer);
 			expect(aiPlayer.workQueue).toBe(1);
 		});
+
+		it('list enemy objects', function(){
+			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			expect(aiService.getEnemyObjects()).toEqual([[0,0]]);
+		});
 	});
 });
