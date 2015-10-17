@@ -129,13 +129,22 @@ describe('MainAppController', function() {
 			expect($('.ship').data('moves')).toEqual(0);
 		});
 
-		it('moves 4 spaces has 3 left and hasn\'t moved', function() {
+		it('moves 4 spaces has 0 left', function() {
 			$('.test-element').append('<div class="x-3 y-0" data-x="3" data-y="0"/>');
 			$('.test-element').append('<div class="x-4 y-0" data-x="4" data-y="0"/>');
 			buildShip();
 			controller.select(0,0);
 			controller.select(4,0);
-			expect($('.ship').data('moves')).toEqual(3);
+			expect($('.ship').data('moves')).toEqual(0);
+		});
+
+		it('moves 4 spaces has 0 left moved to 3,0', function() {
+			$('.test-element').append('<div class="x-3 y-0" data-x="3" data-y="0"/>');
+			$('.test-element').append('<div class="x-4 y-0" data-x="4" data-y="0"/>');
+			buildShip();
+			controller.select(0,0);
+			controller.select(4,0);
+			expect($('.ship').parent().data('x') + '-' + $('.ship').parent().data('y')).toEqual('3-0');
 		});
 
 		it('ending turn refreshes moves remaining', function() {

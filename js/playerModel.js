@@ -37,8 +37,12 @@ mainApp.factory('playerModel', [ 'gridService', function(gridService){
 		},
 		moveShip: function($ship, $coordinates) {
 			var toTravel = gridService.distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
-			if (toTravel > $ship.data('moves'))
+			var moveTo = gridService.moveTowards($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'), $ship.data('moves'));
+			$ship.appendTo($('.x-'+moveTo[0]+'.y-'+moveTo[1]));
+			if (toTravel > $ship.data('moves')) {
+				$ship.data('moves', 0);
 				return false;
+			}
 			$ship.data('moves', $ship.data('moves') - toTravel);
 			$ship.appendTo($coordinates);
 			return true;
