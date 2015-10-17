@@ -1,4 +1,4 @@
-mainApp.factory('aiService', [ 'playerModel', function(playerModel){
+mainApp.factory('aiService', [ 'playerModel', 'gridService', function(playerModel, gridService){
 	return {
 		executeTurn: function(aiPlayer) {
 			if (aiPlayer.resources >= 10)
@@ -13,6 +13,9 @@ mainApp.factory('aiService', [ 'playerModel', function(playerModel){
 				objects.push(coordinates);
 			});
 			return objects;
+		},
+		selectClosestEnemyObject: function(x, y) {
+			return gridService.nearestObject(this.getEnemyObjects(), x, y);
 		}
 	};
 }]);

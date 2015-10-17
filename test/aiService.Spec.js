@@ -23,5 +23,10 @@ describe('Ai Service tests', function() {
 			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
 			expect(aiService.getEnemyObjects()).toEqual([[0,0]]);
 		});
+
+		it('choose nearest enemy object', function(){
+			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			expect(aiService.selectClosestEnemyObject(1, 1)).toEqual([0,0]);
+		});
 	});
 });
