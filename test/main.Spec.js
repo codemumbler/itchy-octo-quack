@@ -152,7 +152,7 @@ describe('MainAppController', function() {
 			buildShip();
 			controller.select(0,0);
 			controller.select(3,0);
-			controller.endTurn();
+			playerModel.endTurn();
 			expect($('.ship').data('moves')).toEqual(3);
 		});
 	});

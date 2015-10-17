@@ -23,7 +23,6 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		playerModel.endTurn();
 		clearPreviousSelection();
 		prevSelected = undefined;
-		$('.ship.' + currentPlayer.name).data('moves', 3);
 		endTurnModal();
 		playerModel.nextPlayer();
 		while (playerModel.currentPlayer.isAI) {

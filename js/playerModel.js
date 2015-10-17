@@ -8,6 +8,7 @@ mainApp.factory('playerModel', [ 'gridService', function(gridService){
 			this.currentPlayer.resources += 7;
 			if (this.currentPlayer.workQueue > 0)
 				this.buildShip();
+			$('.ship.' + this.currentPlayer.name).data('moves', 3);
 		},
 		queueShip: function() {
 			if (this.currentPlayer.resources >= 10) {
