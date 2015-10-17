@@ -1,4 +1,4 @@
-mainApp.factory('playerModel', function(){
+mainApp.factory('playerModel', [ 'gridService', function(gridService){
 	var uniqueId = 0;
 	var currentPlayerIndex = -1;
 	return {
@@ -34,6 +34,14 @@ mainApp.factory('playerModel', function(){
 		nextPlayer: function() {
 			currentPlayerIndex = ((++currentPlayerIndex) % this.players.length);
 			this.currentPlayer = this.players[currentPlayerIndex];
+		},
+		moveShip: function($ship, $coordinates) {
+			var toTravel = gridService.distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
+			if (toTravel > $ship.data('moves'))
+				return false;
+			$ship.data('moves', $ship.data('moves') - toTravel);
+			$ship.appendTo($coordinates);
+			return true;
 		}
 	};
-});
+}]);

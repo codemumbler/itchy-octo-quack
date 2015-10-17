@@ -57,15 +57,6 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		$('#shipDefeatModal').modal('show');
 	};
 
-	var moveShip = function($ship, $coordinates) {
-		var toTravel = gridService.distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
-		if (toTravel > $ship.data('moves'))
-			return false;
-		$ship.data('moves', $ship.data('moves') - toTravel);
-		$ship.appendTo($coordinates);
-		return true;
-	};
-
 	var attack = function($ship, $coordinates) {
 		if ($coordinates.find('.ship.player2').length > 0) {
 			var parent = this;
@@ -108,7 +99,7 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		selected = $('.x-' + x + '.y-' + y);
 		if (prevSelected) {
 			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x') && selected.data('y') == prevSelected.parent().data('y')) && selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
-				if (moveShip(prevSelected, selected)) {
+				if (playerModel.moveShip(prevSelected, selected)) {
 					attack.call(this, prevSelected, selected);
 					return;
 				}
