@@ -43,6 +43,8 @@ mainApp.factory('gridService', function(){
 		moveTowards: function(x1, y1, x2, y2, moves) {
 			var distance = this.distance(x1, y1, x2, y2);
 			var movePoint = [];
+			if (x1 > x2 && y1 > y2)
+				moves = distance - moves - 1;
 			movePoint.push(Math.floor(Math.abs(x2 - x1) * (moves/distance)) + 1);
 			movePoint.push(Math.floor(Math.abs(y2 - y1) * (moves/distance)) + 1);
 			return movePoint;

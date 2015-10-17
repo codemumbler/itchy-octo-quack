@@ -58,5 +58,9 @@ describe('Grid Service tests', function() {
 		it('partial move along awkward point', function(){
 			expect(gridService.moveTowards(1, 1, 4, 9, 3)).toEqual([2,4]);
 		});
+
+		it('partial move backwards along awkward point', function(){
+			expect(gridService.moveTowards(4, 9, 1, 1, 3)).toEqual([2,6]);
+		});
 	});
 });
