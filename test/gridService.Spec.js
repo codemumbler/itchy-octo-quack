@@ -56,11 +56,11 @@ describe('Grid Service tests', function() {
 		});
 
 		it('partial move along awkward point', function(){
-			expect(gridService.moveTowards(1, 1, 4, 9, 3)).toEqual([2,4]);
+			expect(gridService.moveTowards(1, 1, 4, 9, 3)).toEqual([3,4]);
 		});
 
 		it('partial move backwards along awkward point', function(){
-			expect(gridService.moveTowards(4, 9, 1, 1, 3)).toEqual([2,6]);
+			expect(gridService.moveTowards(4, 9, 1, 1, 3)).toEqual([3,6]);
 		});
 
 		it('partial move backwards single axis - x', function(){
@@ -73,6 +73,10 @@ describe('Grid Service tests', function() {
 
 		it('partial move backwards along diagonal', function(){
 			expect(gridService.moveTowards(5, 5, 1, 1, 3)).toEqual([2,2]);
+		});
+
+		it('partial move based upon originating coordinates', function(){
+			expect(gridService.moveTowards(0, 0, 4, 4, 3)).toEqual([3,3]);
 		});
 	});
 });

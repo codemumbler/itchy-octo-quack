@@ -43,10 +43,14 @@ mainApp.factory('gridService', function(){
 		moveTowards: function(x1, y1, x2, y2, moves) {
 			var distance = this.distance(x1, y1, x2, y2);
 			var movePoint = [];
-			if (x1 > x2 || y1 > y2)
+			if (x1 > x2 || y1 > y2) {
 				moves = distance - moves;
-			movePoint.push(Math.floor(Math.abs(x2 - x1) * (moves/distance)) + 1);
-			movePoint.push(Math.floor(Math.abs(y2 - y1) * (moves/distance)) + 1);
+				movePoint.push(Math.ceil(Math.abs(x2 - x1) * (moves/distance)) + x2);
+				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (moves/distance)) + y2);	
+			} else {
+				movePoint.push(Math.ceil(Math.abs(x2 - x1) * (moves/distance)) + x1);
+				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (moves/distance)) + y1);
+			}
 			return movePoint;
 		}
 	};
