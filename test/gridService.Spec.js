@@ -46,5 +46,17 @@ describe('Grid Service tests', function() {
 		it('partial distance along diagonal', function(){
 			expect(gridService.moveTowards(1, 1, 5, 5, 3)).toEqual([4,4]);
 		});
+
+		it('partial move along single axis - x', function(){
+			expect(gridService.moveTowards(1, 1, 5, 1, 3)).toEqual([4,1]);
+		});
+
+		it('partial move along single axis - y', function(){
+			expect(gridService.moveTowards(1, 1, 1, 5, 3)).toEqual([1,4]);
+		});
+
+		it('partial move along awkward point', function(){
+			expect(gridService.moveTowards(1, 1, 4, 9, 3)).toEqual([2,4]);
+		});
 	});
 });
