@@ -42,5 +42,9 @@ describe('Grid Service tests', function() {
 			var objects = [ [0,0], [2,2] ];
 			expect(gridService.nearestObject(objects, 1, 1)).toEqual([0,0]);
 		});
+
+		it('partial distance along diagonal', function(){
+			expect(gridService.moveTowards(1, 1, 5, 5, 3)).toEqual([4,4]);
+		});
 	});
 });

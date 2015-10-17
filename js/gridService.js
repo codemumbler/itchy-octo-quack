@@ -39,6 +39,13 @@ mainApp.factory('gridService', function(){
 				}
 			}
 			return objects[index];
+		},
+		moveTowards: function(x1, y1, x2, y2, moves) {
+			var distance = this.distance(x1, y1, x2, y2);
+			var movePoint = [];
+			movePoint.push(Math.floor(((x1 + x2) * moves)/distance));
+			movePoint.push(Math.floor(((y1 + y2) * moves)/distance));
+			return movePoint;
 		}
 	};
 });
