@@ -82,5 +82,9 @@ describe('Grid Service tests', function() {
 		it('partial move based upon originating coordinates', function(){
 			expect(gridService.moveTowards(4, 10, 9, 4, 3)).toEqual([7,7]);
 		});
+
+		it('moves required less than remaining moves', function(){
+			expect(gridService.moveTowards(0, 0, 1, 1, 3).toEqual([1,1]));
+		});
 	});
 });

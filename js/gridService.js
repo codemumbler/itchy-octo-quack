@@ -42,6 +42,7 @@ mainApp.factory('gridService', function(){
 		},
 		moveTowards: function(x1, y1, x2, y2, moves) {
 			var distance = this.distance(x1, y1, x2, y2);
+			var moves = Math.min(distance, moves);
 			var movePoint = [];
 			if (x1 > x2) {
 				var tempMoves = distance - moves;
@@ -51,7 +52,7 @@ mainApp.factory('gridService', function(){
 			}
 			if (y1 > y2) {
 				var tempMoves = distance - moves;
-				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (tempMoves/distance)) + y2);	
+				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (tempMoves/distance)) + y2);
 			} else {
 				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (moves/distance)) + y1);
 			}
