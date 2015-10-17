@@ -57,6 +57,15 @@ mainApp.factory('gridService', function(){
 				movePoint.push(Math.ceil(Math.abs(y2 - y1) * (moves/distance)) + y1);
 			}
 			return movePoint;
+		},
+		getCoordinates: function($object) {
+			if ($object.hasClass('ship')) {
+				$object = $object.parent();
+			}
+			var coordinates = [];
+			coordinates.push($object.data('x'));
+			coordinates.push($object.data('y'));
+			return coordinates;
 		}
 	};
 });

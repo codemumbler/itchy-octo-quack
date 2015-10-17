@@ -84,7 +84,12 @@ describe('Grid Service tests', function() {
 		});
 
 		it('moves required less than remaining moves', function(){
-			expect(gridService.moveTowards(0, 0, 1, 1, 3).toEqual([1,1]));
+			expect(gridService.moveTowards(0, 0, 1, 1, 3)).toEqual([1,1]);
+		});
+
+		it('getCoordinates', function(){
+			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			expect(gridService.getCoordinates($('.ship'))).toEqual([0,0]);
 		});
 	});
 });
