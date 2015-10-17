@@ -86,10 +86,24 @@ describe('Grid Service tests', function() {
 		it('moves required less than remaining moves', function(){
 			expect(gridService.moveTowards(0, 0, 1, 1, 3)).toEqual([1,1]);
 		});
+	});
 
-		it('getCoordinates', function(){
+	describe('coordinates', function(){
+		beforeEach(function(){
 			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+		});
+
+		it('getCoordinates of grid', function(){
+			expect(gridService.getCoordinates($('.x-0.y-0'))).toEqual([0,0]);
+		});
+
+		it('getCoordinates of ship', function(){
 			expect(gridService.getCoordinates($('.ship'))).toEqual([0,0]);
+		});
+
+		it('getCoordinates of planet', function(){
+			$('.ship').removeClass('ship').addClass('planet');
+			expect(gridService.getCoordinates($('.planet'))).toEqual([0,0]);
 		});
 	});
 });

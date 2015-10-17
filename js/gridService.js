@@ -59,7 +59,7 @@ mainApp.factory('gridService', function(){
 			return movePoint;
 		},
 		getCoordinates: function($object) {
-			if ($object.hasClass('ship')) {
+			if ($object.hasClass('ship') || $object.hasClass('planet')) {
 				$object = $object.parent();
 			}
 			var coordinates = [];
