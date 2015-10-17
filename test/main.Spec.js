@@ -163,7 +163,7 @@ describe('MainAppController', function() {
 			$('.x-0.y-0').addClass('planet player1');
 			controller.select(0,0);
 			controller.select(0,0);
-			controller.endTurn();
+			playerModel.endTurn();
 		};
 
 		it('player1 ship attacks player2 planet - gets destroyed', function() {
@@ -242,7 +242,7 @@ describe('MainAppController', function() {
 			Math.random = function(){
 				return count++;
 			};
-			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"><div class="ship player2"/></div>');
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"><div class="ship player2" /></div>');
 			buildShip();
 			controller.select(0,0);
 			controller.select(1,1);
