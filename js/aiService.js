@@ -11,7 +11,7 @@ mainApp.factory('aiService', [ 'playerModel', 'gridService', function(playerMode
 		},
 		getEnemyObjects: function() {
 			var objects = [];
-			$('.ship.player1').each(function(index, element){
+			$('.player1').each(function(index, element){
 				var coordinates = [];
 				coordinates.push($(element).parent().data('x'));
 				coordinates.push($(element).parent().data('y'));
