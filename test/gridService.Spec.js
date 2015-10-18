@@ -100,10 +100,5 @@ describe('Grid Service tests', function() {
 		it('getCoordinates of ship', function(){
 			expect(gridService.getCoordinates($('.ship'))).toEqual([0,0]);
 		});
-
-		it('getCoordinates of planet', function(){
-			$('.ship').removeClass('ship').addClass('planet');
-			expect(gridService.getCoordinates($('.planet'))).toEqual([0,0]);
-		});
 	});
 });
