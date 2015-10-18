@@ -56,30 +56,6 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		$('#shipDefeatModal').modal('show');
 	};
 
-	var attack = function($ship, $coordinates) {
-		if ($coordinates.find('.ship.player2').length > 0) {
-			var parent = this;
-			$coordinates.find('.ship.player2').each(function(index, data) {
-				if (Math.random() >= 0.5) {
-					destroyShip.call(parent, $ship);
-					shipDefeat();
-				} else {
-					destroyShip.call(parent, $(data));
-					shipVictory();
-				}
-			});
-		}
-		if ($coordinates.hasClass('planet player2')) {
-			if (Math.random() >= 0.2) {
-				destroyShip.call(this, $ship);
-				shipDefeat();
-			} else {
-				$coordinates.removeClass('player2');
-				victory();
-			}
-		}
-	};
-
 	var destroyShip = function($ship) {
 		$ship.remove();
 		if (prevSelected && prevSelected.hasClass('ship') && prevSelected.data('id') == $ship.data('id'))
@@ -98,10 +74,8 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		selected = $('.x-' + x + '.y-' + y);
 		if (prevSelected) {
 			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x') && selected.data('y') == prevSelected.parent().data('y')) && selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
-				if (playerModel.moveShip(prevSelected, selected)) {
-					attack.call(this, prevSelected, selected);
+				if (playerModel.moveShip(prevSelected, selected))
 					return;
-				}
 			}
 			if (prevSelected.hasClass('planet ' + currentPlayer.name + ' selected') && selected.attr('class') == prevSelected.attr('class')) {
 				playerModel.queueShip();
