@@ -27,12 +27,12 @@ mainApp.factory('gridService', function(){
 			if (x==4 && y==10)
 				return 'planet player1';
 		},
-		nearestObject: function(objects, x, y) {
+		nearestObject: function(objects, originatingCoordinates) {
 			var minDistance = 100;
 			var index = -1;
 			var objectsLength = objects.length;
 			for (var i = 0; i < objectsLength; i++) {
-				var objDistance = this.distance(objects[i][0], objects[i][1], x, y);
+				var objDistance = this.distance(objects[i][0], objects[i][1], originatingCoordinates[0], originatingCoordinates[1]);
 				if (objDistance < minDistance) {
 					index = i;
 					minDistance = objDistance;

@@ -30,17 +30,17 @@ describe('Grid Service tests', function() {
 
 		it('nearest object', function() {
 			var objects = [ [0,0] ];
-			expect(gridService.nearestObject(objects, 1, 1)).toEqual([0,0]);
+			expect(gridService.nearestObject(objects, [1, 1])).toEqual([0,0]);
 		});
 
 		it('nearest objects', function() {
 			var objects = [ [0,0], [3,3] ];
-			expect(gridService.nearestObject(objects, 2, 2)).toEqual([3,3]);
+			expect(gridService.nearestObject(objects, [2, 2])).toEqual([3,3]);
 		});
 
 		it('nearest object - equal distance', function() {
 			var objects = [ [0,0], [2,2] ];
-			expect(gridService.nearestObject(objects, 1, 1)).toEqual([0,0]);
+			expect(gridService.nearestObject(objects, [1, 1])).toEqual([0,0]);
 		});
 
 		it('partial distance along diagonal', function(){

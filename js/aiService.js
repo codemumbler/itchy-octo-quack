@@ -5,22 +5,19 @@ mainApp.factory('aiService', [ 'playerModel', 'gridService', function(playerMode
 				playerModel.queueShip();
 			var service = this;
 			$('.ship.player2').each(function(index, ship){
-				var enemyShipCoordinates = service.selectClosestEnemyObject($(ship).parent().data('x'), $(ship).parent().data('y'));
-				playerModel.moveShip($(ship), $('.x-'+enemyShipCoordinates[0]+'.y-'+enemyShipCoordinates[1]));
+				var enemyShipCoordinates = service.selectClosestEnemyObject(gridService.getCoordinates($(ship)));
+				playerModel.moveShip($(ship), gridService.getGrid(enemyShipCoordinates));
 			});
 		},
 		getEnemyObjects: function() {
 			var objects = [];
 			$('.player1').each(function(index, element){
-				var coordinates = [];
-				coordinates.push($(element).parent().data('x'));
-				coordinates.push($(element).parent().data('y'));
-				objects.push(coordinates);
+				objects.push(gridService.getCoordinates($(element)));
 			});
 			return objects;
 		},
-		selectClosestEnemyObject: function(x, y) {
-			return gridService.nearestObject(this.getEnemyObjects(), x, y);
+		selectClosestEnemyObject: function(originatingCoordinates) {
+			return gridService.nearestObject(this.getEnemyObjects(), originatingCoordinates);
 		}
 	};
 }]);
