@@ -93,12 +93,25 @@ describe('Grid Service tests', function() {
 			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
 		});
 
+		afterEach(function(){
+			$('.test-element').remove();
+		});
+
 		it('getCoordinates of grid', function(){
 			expect(gridService.getCoordinates($('.x-0.y-0'))).toEqual([0,0]);
 		});
 
 		it('getCoordinates of ship', function(){
 			expect(gridService.getCoordinates($('.ship'))).toEqual([0,0]);
+		});
+
+		it('getGrid at coordinate', function() {
+			expect(gridService.getGrid(0, 0).hasClass('x-0 y-0')).toBe(true);
+		});
+
+		it('getGrid takes an array', function() {
+			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
+			expect(gridService.getGrid([1, 1]).hasClass('x-1 y-1')).toBe(true);
 		});
 	});
 });

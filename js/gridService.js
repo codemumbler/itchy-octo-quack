@@ -66,6 +66,9 @@ mainApp.factory('gridService', function(){
 			coordinates.push($object.data('x'));
 			coordinates.push($object.data('y'));
 			return coordinates;
+		},
+		getGrid: function(x, y) {
+			return $('.x-' + x + '.y-' + y);
 		}
 	};
 });
