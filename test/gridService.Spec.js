@@ -140,5 +140,11 @@ describe('Grid Service tests', function() {
 			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
 			expect(gridService.getGrid([1, 1]).hasClass('x-1 y-1')).toBe(true);
 		});
+
+		it('getGrid takes an array', function() {
+			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
+			$(document.body).append('<div class="test-element"><div class="x-1 y-2" data-x="1" data-y="2"/></div>');
+			expect(gridService.getGrid([1, 1]).length).toBe(1);
+		});
 	});
 });
