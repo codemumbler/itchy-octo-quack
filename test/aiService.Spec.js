@@ -13,6 +13,10 @@ describe('Ai Service tests', function() {
 	}));
 
 	describe('computer player', function(){
+		afterEach(function(){
+			$('.test-element').remove();
+		});
+
 		it('player 2 queues ship', function(){
 			aiPlayer.resources = 10;
 			aiService.executeTurn(aiPlayer);

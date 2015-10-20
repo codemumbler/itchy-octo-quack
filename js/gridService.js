@@ -1,17 +1,28 @@
 mainApp.factory('gridService', function(){
 
+	var rawDistance = function(x1, y1, x2, y2) {
+		var dx = Math.abs(x2 - x1);
+		var dy = Math.abs(y2 - y1);
+
+		var min = Math.min(dx, dy);
+		var max = Math.max(dx, dy);
+
+		var diagonalSteps = min;
+		var straightSteps = max - min;
+
+		return diagonalSteps + straightSteps;
+	}
+
 	return {
-		distance: function(x1, y1, x2, y2) {
-			var dx = Math.abs(x2 - x1);
-			var dy = Math.abs(y2 - y1);
+		distance: function($ship, $destination) {
+			var coordinates1 = this.getCoordinates($ship);
+			var coordinates2 = this.getCoordinates($destination);
+			var x1 = coordinates1[0];
+			var x2 = coordinates2[0];
+			var y1 = coordinates1[1];
+			var y2 = coordinates2[1];
 
-			var min = Math.min(dx, dy);
-			var max = Math.max(dx, dy);
-
-			var diagonalSteps = min;
-			var straightSteps = max - min;
-
-			return diagonalSteps + straightSteps;
+			return rawDistance(x1, y1, x2, y2);
 		},
 		getGridSize: function() {
 			var array = [];
@@ -32,7 +43,7 @@ mainApp.factory('gridService', function(){
 			var index = -1;
 			var objectsLength = objects.length;
 			for (var i = 0; i < objectsLength; i++) {
-				var objDistance = this.distance(objects[i][0], objects[i][1], originatingCoordinates[0], originatingCoordinates[1]);
+				var objDistance = rawDistance(objects[i][0], objects[i][1], originatingCoordinates[0], originatingCoordinates[1]);
 				if (objDistance < minDistance) {
 					index = i;
 					minDistance = objDistance;
@@ -40,9 +51,16 @@ mainApp.factory('gridService', function(){
 			}
 			return objects[index];
 		},
-		moveTowards: function(x1, y1, x2, y2, moves) {
-			var distance = this.distance(x1, y1, x2, y2);
-			var moves = Math.min(distance, moves);
+		moveTowards: function($ship, $destination) {
+			var coordinates1 = this.getCoordinates($ship);
+			var coordinates2 = this.getCoordinates($destination);
+			var x1 = coordinates1[0];
+			var x2 = coordinates2[0];
+			var y1 = coordinates1[1];
+			var y2 = coordinates2[1];
+
+			var distance = this.distance($ship, $destination);
+			var moves = Math.min(distance, $ship.data('moves'));
 			var movePoint = [];
 			if (x1 > x2) {
 				var tempMoves = distance - moves;

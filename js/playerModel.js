@@ -73,9 +73,9 @@ mainApp.factory('playerModel', [ 'gridService', function(gridService){
 		moveShip: function($ship, $coordinates) {
 			if ($ship.data('moves') == 0)
 				return false;
-			var toTravel = gridService.distance($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'));
-			var moveTo = gridService.moveTowards($ship.parent().data('x'), $ship.parent().data('y'), $coordinates.data('x'), $coordinates.data('y'), $ship.data('moves'));
-			var finalCoordinates = $('.x-'+moveTo[0]+'.y-'+moveTo[1]);
+			var toTravel = gridService.distance($ship, $coordinates);
+			var moveTo = gridService.moveTowards($ship, $coordinates);
+			var finalCoordinates = gridService.getGrid(moveTo);
 			$ship.appendTo(finalCoordinates);
 			$ship.data('moves', Math.max(0, $ship.data('moves') - toTravel));
 			attack($ship, finalCoordinates);

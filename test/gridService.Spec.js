@@ -42,49 +42,76 @@ describe('Grid Service tests', function() {
 			var objects = [ [0,0], [2,2] ];
 			expect(gridService.nearestObject(objects, [1, 1])).toEqual([0,0]);
 		});
+	});
+
+	describe('moveTowards grid calculations', function(){
+		function getShip(x,y){
+			return $('.x-'+x+'.y-'+y+' .ship');
+		}
+		function getCell(x,y) {
+			return $('.x-'+x+'.y-'+y);
+		}
+		beforeEach(function(){
+			function createGridCell(x,y) {
+				$(document.body).append('<div class="test-element"><div class="x-'+x+' y-'+y+'" data-x="'+x+'" data-y="'+y+'"><div class="ship player1" data-moves="3"/></div>');
+			}
+			createGridCell(1,1);
+			createGridCell(5,5);
+			createGridCell(5,1);
+			createGridCell(1,5);
+			createGridCell(4,9);
+			createGridCell(0,0);
+			createGridCell(4,4);
+			createGridCell(9,4);
+			createGridCell(4,10);
+		});
+
+		afterEach(function(){
+			$('.test-element').remove();
+		});
 
 		it('partial distance along diagonal', function(){
-			expect(gridService.moveTowards(1, 1, 5, 5, 3)).toEqual([4,4]);
+			expect(gridService.moveTowards(getShip(1,1), getCell(5,5))).toEqual([4,4]);
 		});
 
 		it('partial move along single axis - x', function(){
-			expect(gridService.moveTowards(1, 1, 5, 1, 3)).toEqual([4,1]);
+			expect(gridService.moveTowards(getShip(1,1), getCell(5,1))).toEqual([4,1]);
 		});
 
 		it('partial move along single axis - y', function(){
-			expect(gridService.moveTowards(1, 1, 1, 5, 3)).toEqual([1,4]);
+			expect(gridService.moveTowards(getShip(1,1), getCell(1,5))).toEqual([1,4]);
 		});
 
 		it('partial move along awkward point', function(){
-			expect(gridService.moveTowards(1, 1, 4, 9, 3)).toEqual([3,4]);
+			expect(gridService.moveTowards(getShip(1,1), getCell(4,9))).toEqual([3,4]);
 		});
 
 		it('partial move backwards along awkward point', function(){
-			expect(gridService.moveTowards(4, 9, 1, 1, 3)).toEqual([3,6]);
+			expect(gridService.moveTowards(getShip(4,9), getCell(1,1))).toEqual([3,6]);
 		});
 
 		it('partial move backwards single axis - x', function(){
-			expect(gridService.moveTowards(5, 1, 1, 1, 3)).toEqual([2,1]);
+			expect(gridService.moveTowards(getShip(5,1), getCell(1,1))).toEqual([2,1]);
 		});
 
 		it('partial move backwards single axis - y', function(){
-			expect(gridService.moveTowards(1, 5, 1, 1, 3)).toEqual([1,2]);
+			expect(gridService.moveTowards(getShip(1,5), getCell(1,1))).toEqual([1,2]);
 		});
 
 		it('partial move backwards along diagonal', function(){
-			expect(gridService.moveTowards(5, 5, 1, 1, 3)).toEqual([2,2]);
+			expect(gridService.moveTowards(getShip(5,5), getCell(1,1))).toEqual([2,2]);
 		});
 
 		it('partial move based upon originating coordinates', function(){
-			expect(gridService.moveTowards(0, 0, 4, 4, 3)).toEqual([3,3]);
+			expect(gridService.moveTowards(getShip(0,0), getCell(4,4))).toEqual([3,3]);
 		});
 
 		it('partial move based upon originating coordinates', function(){
-			expect(gridService.moveTowards(4, 10, 9, 4, 3)).toEqual([7,7]);
+			expect(gridService.moveTowards(getShip(4,10), getCell(9,4))).toEqual([7,7]);
 		});
 
 		it('moves required less than remaining moves', function(){
-			expect(gridService.moveTowards(0, 0, 1, 1, 3)).toEqual([1,1]);
+			expect(gridService.moveTowards(getShip(0,0), getCell(1,1))).toEqual([1,1]);
 		});
 	});
 
