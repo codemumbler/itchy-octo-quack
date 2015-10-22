@@ -84,10 +84,10 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 				return;
 			}
 		}
-		if (selected.find('.ship').length > 0 && selected.find('.ship.selected').length == 0) {
-			selected.find('.ship:last').addClass('selected');
+		if (selected.find('.ship.' + currentPlayer.name).length > 0 && selected.find('.ship.' + currentPlayer.name + '.selected').length == 0) {
+			selected.find('.ship.' + currentPlayer.name + ':last').addClass('selected');
 			var parent = this;
-			$(selected.find('.ship').get().reverse()).each(function(index, data) {
+			$(selected.find('.ship.' + currentPlayer.name).get().reverse()).each(function(index, data) {
 				if ($(data).data('moves') > 0) {
 					selected = $(data);
 					return false;
