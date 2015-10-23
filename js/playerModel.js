@@ -1,4 +1,4 @@
-mainApp.factory('playerModel', [ 'gridService', function(gridService){
+mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(gridService, notificationService){
 	var uniqueId = 0;
 	var currentPlayerIndex = -1;
 
@@ -17,20 +17,20 @@ mainApp.factory('playerModel', [ 'gridService', function(gridService){
 			$coordinates.find('.ship.' + enemyShipClass).each(function(index, data) {
 				if (Math.random() >= 0.5) {
 					$ship.remove();
-					// shipDefeat();
+					notificationService.shipDefeat();
 				} else {
 					$(data).remove();
-					// shipVictory();
+					notificationService.shipVictory();
 				}
 			});
 		}
 		if ($coordinates.hasClass('planet ' + enemyShipClass)) {
 			if (Math.random() >= 0.2) {
 				$ship.remove();
-				// shipDefeat();
+				notificationService.shipDefeat();
 			} else {
 				$coordinates.removeClass(enemyShipClass);
-				// victory();
+				notificationService.victory();
 			}
 		}
 	};

@@ -28,6 +28,7 @@
   <script src="js/playerModel.js"></script>
   <script src="js/aiService.js"></script>
   <script src="js/gridService.js"></script>
+  <script src="js/notificationService.js"></script>
 </head>
 
 <body ng-controller="MainAppController as main">
@@ -50,51 +51,6 @@
           <div class="x-{{x}} y-{{y}}" data-x="{{x}}" data-y="{{y}}" ng-class="main.hasObject(x,y)" ng-click="main.select(x,y)">
             <div ng-if="main.hasObject(x,y)=='planet player1' && main.getWorkQueue() > 0" class="badge work-queue">{{main.getWorkQueue()}}</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="endTurnModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>Waiting for other players...</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="victoryModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>Congratulations you won!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="defeatModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>You lost!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="shipVictoryModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>Your ship won a battle!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="shipDefeatModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>You lost your ship in the battle!</p>
         </div>
       </div>
     </div>

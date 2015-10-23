@@ -1,5 +1,5 @@
 var mainApp = angular.module('mainApp', []);
-mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridService', function(playerModel, aiService, gridService) {
+mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridService', 'notificationService', function(playerModel, aiService, gridService, notificationService) {
 	var selected = undefined;
 	var prevSelected = undefined;
 
@@ -23,7 +23,7 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		playerModel.endTurn();
 		clearPreviousSelection();
 		prevSelected = undefined;
-		endTurnModal();
+		notificationService.endTurnModal();
 		playerModel.nextPlayer();
 		while (playerModel.currentPlayer.isAI) {
 			aiService.executeTurn(playerModel.currentPlayer);
@@ -31,29 +31,6 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 			playerModel.nextPlayer();
 		}
 		this.turn++;
-	};
-
-	var endTurnModal = function() {
-		$('#endTurnModal').modal('show');
-		setTimeout(function() {
-			$('#endTurnModal').modal('hide');
-		}, 100);
-	};
-
-	var victory = function() {
-		$('#victoryModal').modal('show');
-	};
-
-	var defeat = function() {
-		$('#defeatModal').modal('show');
-	};
-
-	var shipVictory = function() {
-		$('#shipVictoryModal').modal('show');
-	};
-
-	var shipDefeat = function() {
-		$('#shipDefeatModal').modal('show');
 	};
 
 	var destroyShip = function($ship) {
