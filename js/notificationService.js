@@ -19,7 +19,7 @@ mainApp.factory('notificationService', function() {
 	createModal('endTurnModal', 'Waiting for other players...');
 
 	return {
-		endTurnModal: function() {
+		endTurn: function() {
 			$('#endTurnModal').modal('show');
 			setTimeout(function() {
 				$('#endTurnModal').modal('hide');

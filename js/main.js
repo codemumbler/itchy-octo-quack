@@ -23,7 +23,7 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 		playerModel.endTurn();
 		clearPreviousSelection();
 		prevSelected = undefined;
-		notificationService.endTurnModal();
+		notificationService.endTurn();
 		playerModel.nextPlayer();
 		while (playerModel.currentPlayer.isAI) {
 			aiService.executeTurn(playerModel.currentPlayer);
