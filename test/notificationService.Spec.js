@@ -53,10 +53,9 @@ describe('Notification Service tests', function() {
 		it('end turn modal goes away', function(done) {
 			notificationService.endTurn();
 			setTimeout(function(){
-				done();
 				expect($('#endTurnModal').is(':visible')).toBe(false);
-			}, 300);
-			expect($('#endTurnModal').is(':visible')).toBe(true);
+				done();
+			}, 500);
 		});
 	});
 });

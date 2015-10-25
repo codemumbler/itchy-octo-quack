@@ -13,7 +13,13 @@ describe('MainAppController', function() {
 		controller = $controller('MainAppController', playerModel, aiService, gridService);
 		player1 = playerModel.players[0];
 		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"/></div>');
-		$.fn.modal = function(){};
+		$.fn.modal = function(action){
+			if (action == 'show') {
+				$(this).css('display', 'block');
+			} else {
+				$(this).css('display', 'none');
+			}
+		};
 	}));
 
 	afterEach(function(){
