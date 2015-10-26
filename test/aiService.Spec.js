@@ -49,8 +49,10 @@ describe('Ai Service tests', function() {
 	});
 
 	describe('ai attack notifications', function(){
-		$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
-		$(document.body).append('<div class="test-element"><div class="x-3 y-3" data-x="3" data-y="3"><div class="ship player2" data-moves="3"/></div></div>');
+		beforeEach(function() {
+			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			$(document.body).append('<div class="test-element"><div class="x-3 y-3" data-x="3" data-y="3"><div class="ship player2" data-moves="3"/></div></div>');
+		});
 
 		it('defeat modal should not display to user', function() {
 			Math.random = function() {
@@ -78,13 +80,13 @@ describe('Ai Service tests', function() {
 			$('.x-0.y-0').find('.ship').remove();
 			$('.x-0.y-0').addClass("planet player1");
 			Math.random = function() {
-				return 0.9;
+				return 0;
 			};
-			notificationService.shipDefeat = function() {
+			notificationService.victory = function() {
 				fail('notification was called');
 			};
 			aiService.executeTurn(aiPlayer);
-			expect(1).toBe(1);
+			expect($('#defeatModal').is(':visible')).toBe(true);
 		});
 	});
 });
