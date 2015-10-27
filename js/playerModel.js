@@ -26,7 +26,7 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 				}
 			});
 		}
-		if ($coordinates.hasClass('planet ' + enemyShipClass)) {
+		if ($coordinates.hasClass('planet ' + enemyShipClass) && $ship.parent().length != 0) {
 			if (Math.random() >= 0.2) {
 				$ship.remove();
 				if (!currentPlayer.isAI)

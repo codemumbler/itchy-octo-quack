@@ -268,5 +268,17 @@ describe('MainAppController', function() {
 			controller.select(1,1);
 			expect($('.ship.player2').length).toEqual(2);
 		});
+
+		it('player2 ship and planet, player1 dies after first, does not attack next planet', function(){
+			var count = 1.0;
+			Math.random = function(){
+				return count-=0.5;
+			};
+			buildShip();
+			$('.test-element').append('<div class="x-1 y-1 planet player2" data-x="1" data-y="1"><div class="ship player2" /></div>');
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship.player2,.planet.player2').length).toEqual(2);
+		});
 	});
 });
