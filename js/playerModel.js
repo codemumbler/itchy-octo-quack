@@ -18,6 +18,7 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 					$ship.remove();
 					if (!currentPlayer.isAI)
 						notificationService.shipDefeat();
+					return false;
 				} else {
 					$(data).remove();
 					if (!currentPlayer.isAI)

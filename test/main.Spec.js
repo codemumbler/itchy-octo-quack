@@ -256,5 +256,17 @@ describe('MainAppController', function() {
 			expect($('.ship.player2').length).toEqual(0);
 			expect($('.ship.player1').length).toEqual(0);
 		});
+
+		it('two player2 ships, player1 dies after first, does not attack next ship', function(){
+			var count = 1.0;
+			Math.random = function(){
+				return count-=0.5;
+			};
+			buildShip();
+			$('.test-element').append('<div class="x-1 y-1" data-x="1" data-y="1"><div class="ship player2" /><div class="ship player2" /></div>');
+			controller.select(0,0);
+			controller.select(1,1);
+			expect($('.ship.player2').length).toEqual(2);
+		});
 	});
 });
