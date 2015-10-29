@@ -53,7 +53,7 @@ describe('Grid Service tests', function() {
 		}
 		beforeEach(function(){
 			function createGridCell(x,y) {
-				$(document.body).append('<div class="test-element"><div class="x-'+x+' y-'+y+'" data-x="'+x+'" data-y="'+y+'"><div class="ship player1" data-moves="3"/></div>');
+				addObjectToCell(x,y,'ship',1);
 			}
 			createGridCell(1,1);
 			createGridCell(5,5);
@@ -117,7 +117,8 @@ describe('Grid Service tests', function() {
 
 	describe('coordinates', function(){
 		beforeEach(function(){
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			addObjectToCell(0,0,'ship',1);
+			addObjectToCell(0,0,'planet',1);
 		});
 
 		afterEach(function(){
@@ -132,19 +133,23 @@ describe('Grid Service tests', function() {
 			expect(gridService.getCoordinates($('.ship'))).toEqual([0,0]);
 		});
 
-		it('getGrid at coordinate', function() {
-			expect(gridService.getGrid(0, 0).hasClass('x-0 y-0')).toBe(true);
+		it('getCoordinates of planet', function(){
+			expect(gridService.getCoordinates($('.planet'))).toEqual([0,0]);
 		});
 
-		it('getGrid takes an array', function() {
-			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
-			expect(gridService.getGrid([1, 1]).hasClass('x-1 y-1')).toBe(true);
+		it('getGridCell at coordinate', function() {
+			expect(gridService.getGridCell(0, 0).hasClass('x-0 y-0')).toBe(true);
 		});
 
-		it('getGrid takes an array', function() {
-			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
-			$(document.body).append('<div class="test-element"><div class="x-1 y-2" data-x="1" data-y="2"/></div>');
-			expect(gridService.getGrid([1, 1]).length).toBe(1);
+		it('getGridCell takes an array', function() {
+			addCell(1,1);
+			expect(gridService.getGridCell([1, 1]).hasClass('x-1 y-1')).toBe(true);
+		});
+
+		it('getGridCell takes an array', function() {
+			addCell(1,1);
+			addCell(1,2);
+			expect(gridService.getGridCell([1, 1]).length).toBe(1);
 		});
 	});
 });

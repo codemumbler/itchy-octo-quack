@@ -77,7 +77,7 @@ mainApp.factory('gridService', function(){
 			return movePoint;
 		},
 		getCoordinates: function($object) {
-			if ($object.hasClass('ship')) {
+			if ($object.hasClass('ship') || $object.hasClass('planet')) {
 				$object = $object.parent();
 			}
 			var coordinates = [];
@@ -85,7 +85,7 @@ mainApp.factory('gridService', function(){
 			coordinates.push($object.data('y'));
 			return coordinates;
 		},
-		getGrid: function(x, y) {
+		getGridCell: function(x, y) {
 			if (x instanceof Array)
 				return $('.x-' + x[0] + '.y-' + x[1]);
 			return $('.x-' + x + '.y-' + y);

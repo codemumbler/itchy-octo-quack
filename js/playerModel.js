@@ -26,7 +26,7 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 				}
 			});
 		}
-		if ($coordinates.hasClass('planet ' + enemyShipClass) && $ship.parent().length != 0) {
+		if ($coordinates.find('.planet.' + enemyShipClass).length > 0 && $ship.parent().length != 0) {
 			if (Math.random() >= 0.2) {
 				$ship.remove();
 				if (!currentPlayer.isAI)
@@ -63,7 +63,8 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 			ship.addClass(this.currentPlayer.name);
 			ship.data('moves', 3);
 			ship.data('id', uniqueId++);
-			$('.planet.' + this.currentPlayer.name).append(ship);
+			var planetCoordinates = gridService.getCoordinates($('.planet.' + this.currentPlayer.name));
+			gridService.getGridCell(planetCoordinates).append(ship);
 		},
 		addPlayer: function(name, isAI) {
 			this.players.push({
@@ -82,7 +83,7 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 				return false;
 			var toTravel = gridService.distance($ship, $coordinates);
 			var moveTo = gridService.moveTowards($ship, $coordinates);
-			var finalCoordinates = gridService.getGrid(moveTo);
+			var finalCoordinates = gridService.getGridCell(moveTo);
 			$ship.appendTo(finalCoordinates);
 			$ship.data('moves', Math.max(0, $ship.data('moves') - toTravel));
 			attack($ship, finalCoordinates, this.currentPlayer);

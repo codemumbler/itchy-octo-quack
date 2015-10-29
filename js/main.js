@@ -48,13 +48,17 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 	};
 
 	this.select = function(x, y) {
-		selected = $('.x-' + x + '.y-' + y);
+		selected = gridService.getGridCell(x, y);
 		if (prevSelected) {
-			if (prevSelected.hasClass('ship ' + currentPlayer.name) && !(selected.data('x') == prevSelected.parent().data('x') && selected.data('y') == prevSelected.parent().data('y')) && selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
+			var prevSelectedCell = gridService.getCoordinates(prevSelected);
+			if (prevSelected.hasClass('ship ' + currentPlayer.name)
+					&& !(selected.data('x') == prevSelectedCell[0] && selected.data('y') == prevSelectedCell[1])
+					&& selected.find('.ship.' + currentPlayer.name).data('id') != prevSelected.data('id')) {
 				if (playerModel.moveShip(prevSelected, selected))
 					return;
 			}
-			if (prevSelected.hasClass('planet ' + currentPlayer.name + ' selected') && selected.attr('class') == prevSelected.attr('class')) {
+			if (prevSelected.hasClass('planet ' + currentPlayer.name + ' selected')
+					&& (selected.data('x') == prevSelectedCell[0] && selected.data('y') == prevSelectedCell[1])) {
 				playerModel.queueShip();
 				clearPreviousSelection();
 				prevSelected = undefined;
@@ -71,6 +75,8 @@ mainApp.controller('MainAppController', ['playerModel', 'aiService', 'gridServic
 				}
 				selected = $(data);
 			});
+		} else if (selected.find('.planet.' + currentPlayer.name).length > 0) {
+			selected = selected.find('.planet.' + currentPlayer.name);
 		}
 		clearPreviousSelection();
 		selected.addClass('selected');

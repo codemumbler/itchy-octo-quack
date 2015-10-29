@@ -25,24 +25,24 @@ describe('Ai Service tests', function() {
 		});
 
 		it('list enemy objects', function(){
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			addObjectToCell(0,0,'ship',1);
 			expect(aiService.getEnemyObjects()).toEqual([[0,0]]);
 		});
 
 		it('choose nearest enemy object', function(){
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
+			addObjectToCell(0,0,'ship',1);
 			expect(aiService.selectClosestEnemyObject([1, 1])).toEqual([0,0]);
 		});
 
 		it('choose nearest enemy object when it is a planet', function(){
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0 player1 planet" data-x="0" data-y="0"/></div>');
+			addObjectToCell(0,0,'planet',1);
 			expect(aiService.selectClosestEnemyObject([1, 1])).toEqual([0,0]);
 		});
 
 		it('move ship towards enemy object', function(){
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
-			$(document.body).append('<div class="test-element"><div class="x-1 y-1" data-x="1" data-y="1"/></div>');
-			$(document.body).append('<div class="test-element"><div class="x-4 y-4" data-x="4" data-y="4"><div class="ship player2" data-moves="3"/></div></div>');
+			addObjectToCell(0,0,'ship',1);
+			addCell(1,1);
+			addObjectToCell(4,4,'ship',2);
 			aiService.executeTurn(aiPlayer);
 			expect($('.x-1.y-1').find('.ship.player2').length).toBe(1);
 		});
@@ -50,8 +50,8 @@ describe('Ai Service tests', function() {
 
 	describe('ai attack notifications', function(){
 		beforeEach(function() {
-			$(document.body).append('<div class="test-element"><div class="x-0 y-0" data-x="0" data-y="0"><div class="ship player1"/></div></div>');
-			$(document.body).append('<div class="test-element"><div class="x-3 y-3" data-x="3" data-y="3"><div class="ship player2" data-moves="3"/></div></div>');
+			addObjectToCell(0,0,'ship',1,0);
+			addObjectToCell(3,3,'ship',2);
 		});
 
 		it('defeat modal should not display to user', function() {
@@ -78,7 +78,7 @@ describe('Ai Service tests', function() {
 
 		it('vs planet players loses displays notification', function() {
 			$('.x-0.y-0').find('.ship').remove();
-			$('.x-0.y-0').addClass("planet player1");
+			addObjectToCell(0,0,'planet',1);
 			Math.random = function() {
 				return 0;
 			};

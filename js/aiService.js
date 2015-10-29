@@ -6,7 +6,7 @@ mainApp.factory('aiService', [ 'playerModel', 'gridService', function(playerMode
 			var service = this;
 			$('.ship.player2').each(function(index, ship){
 				var enemyShipCoordinates = service.selectClosestEnemyObject(gridService.getCoordinates($(ship)));
-				playerModel.moveShip($(ship), gridService.getGrid(enemyShipCoordinates));
+				playerModel.moveShip($(ship), gridService.getGridCell(enemyShipCoordinates));
 			});
 		},
 		getEnemyObjects: function() {
