@@ -198,7 +198,7 @@ describe('MainAppController', function() {
       buildShip();
       controller.select(0, 0);
       controller.select(1, 1);
-      expect($('.x-1.y-1.planet').hasClass('player2')).toEqual(false);
+      expect($('.x-1.y-1').find('.planet').hasClass('player2')).toEqual(false);
     });
 
     it('player1 ship attacks player2 ship - player1 dies', function() {

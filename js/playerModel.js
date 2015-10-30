@@ -32,7 +32,7 @@ mainApp.factory('playerModel', [ 'gridService', 'notificationService', function(
 				if (!currentPlayer.isAI)
 					notificationService.shipDefeat();
 			} else {
-				$coordinates.removeClass(enemyShipClass);
+				$coordinates.find('.planet').removeClass(enemyShipClass);
 				if (!currentPlayer.isAI)
 					notificationService.victory();
 				else {
