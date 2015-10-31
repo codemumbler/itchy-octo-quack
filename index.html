@@ -33,14 +33,20 @@
 
 <body ng-controller="MainAppController as main">
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container" >
+    <div class="container">
       <div class="navbar-header">
         <a href="#" class="navbar-brand">Itchy-Octo-Quack</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><p class="navbar-text">Turn #{{main.turn}}</p></li>
-        <li><p class="navbar-text">Resources: {{main.getResources()}}</p></li>
-        <li><button type="button" class="btn btn-default navbar-btn" ng-click="main.endTurn()">End turn</button></li>
+        <li>
+          <p class="navbar-text">Turn #{{main.turn}}</p>
+        </li>
+        <li>
+          <p class="navbar-text">Resources: {{main.getResources()}}</p>
+        </li>
+        <li>
+          <button type="button" class="btn btn-default navbar-btn" ng-click="main.endTurn()">End turn</button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -49,7 +55,7 @@
       <div class="row" ng-repeat="y in main.getGridSize()">
         <div class="col-sm-1" ng-repeat="x in main.getGridSize()">
           <div class="x-{{x}} y-{{y}}" data-x="{{x}}" data-y="{{y}}" ng-click="main.select(x,y)">
-            <div ng-class="main.hasObject(x,y)" ng-if="main.hasObject(x,y)"/>
+            <div ng-class="main.hasObject(x,y)" ng-if="main.hasObject(x,y)" />
             <div ng-if="main.hasObject(x,y)=='planet player1' && main.getWorkQueue() > 0" class="badge work-queue">{{main.getWorkQueue()}}</div>
           </div>
         </div>
@@ -57,4 +63,5 @@
     </div>
   </div>
 </body>
+
 </html>
