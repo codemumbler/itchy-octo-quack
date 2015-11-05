@@ -27,6 +27,9 @@
 .system-container .row > div > div {
   height: 100%;
 }
+.grid-cell {
+  background: #000 url('../images/starry-night.jpg') no-repeat fixed center;
+}
 .planet {
   background-color: #333;
   height: 90%;
@@ -36,7 +39,8 @@
   z-index: 10;
 }
 .sun {
-  background-color: #FFFF00;
+  background: #000 url('../images/sun.png') no-repeat center;
+  background-size: contain;
   height: 90%;
   position: absolute;
   width: 90%;
